@@ -1,0 +1,21 @@
+/* Giao diện Button */
+.button {
+    -fx-background-color: linear-gradient(#f5ad76, #d96c3e); /* Gradient cam */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 20px; /* Bo tròn */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2); /* Hiệu ứng bóng */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#fcd1a1, #f1975b); /* Gradient cam nhạt hơn */
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: #d96c3e; /* Màu cam đậm */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3); /* Bóng đậm hơn */
+}

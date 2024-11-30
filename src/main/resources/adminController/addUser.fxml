@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" stylesheets="@../styles/addUserStyles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminController.AddUserController">
+   <children>
+      <TextField fx:id="fullNameField" layoutX="330.0" layoutY="84.0" prefHeight="35.0" prefWidth="250.0" promptText="Fullname" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailField" layoutX="330.0" layoutY="143.0" prefHeight="35.0" prefWidth="250.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="phoneNumberField" layoutX="330.0" layoutY="202.0" prefHeight="35.0" prefWidth="250.0" promptText="Phone number" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Text fill="#d96c3e" layoutX="195.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add user" textAlignment="CENTER" wrappingWidth="210.6785888671875">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Text>
+      <Button fx:id="addButton" layoutY="303.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="46.0" prefWidth="300.0" text="Add" />
+      <Button fx:id="closeButton" layoutX="300.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="46.0" prefWidth="300.0" text="Close" />
+      <TextField fx:id="usernameField" layoutX="20.0" layoutY="84.0" prefHeight="35.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="passwordField" layoutX="20.0" layoutY="143.0" prefHeight="35.0" prefWidth="250.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="identificationIdField" layoutX="20.0" layoutY="202.0" prefHeight="35.0" prefWidth="250.0" promptText="Identification ID" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

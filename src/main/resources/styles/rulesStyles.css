@@ -1,0 +1,10 @@
+.root {
+    -fx-background-image: url('../userController/Images/12.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+}

@@ -1,0 +1,84 @@
+/* Toàn bộ giao diện với nền gradient cam ấm */
+AnchorPane {
+    -fx-background-color: linear-gradient(to bottom right, #ffd1a9, #ff7b4f);
+    -fx-padding: 20;
+}
+
+/* Hình ảnh sách với khung nổi bật */
+ImageView {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 5, 5);
+    -fx-border-color: #ffffff;
+    -fx-border-width: 8;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+/* Khối chứa thông tin sách */
+VBox {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-border-color: #ffae80;
+    -fx-border-width: 2;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0.3, 5, 5);
+}
+
+/* Tiêu đề mỗi phần như 'Tên sách', 'Tác giả', ... */
+.label-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6a33;
+}
+
+/* Nội dung thông tin sách */
+.label-content {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a2e16;
+    -fx-background-color: #fff4e6;
+    -fx-padding: 8;
+    -fx-border-radius: 5;
+    -fx-border-color: #ffb999;
+    -fx-border-width: 1;
+}
+
+/* Hover effect cho nội dung sách */
+/*.label-content:hover {*/
+/*    -fx-background-color: #ffe0cc;*/
+/*    -fx-border-color: #ff6a33;*/
+/*    -fx-cursor: hand;*/
+/*}*/
+
+/* Khối chứa mô tả với hiệu ứng nổi bật */
+.description-area {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a2e16;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ffae80;
+    -fx-border-radius: 10;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.3, 3, 3);
+}
+
+/* Nhãn 'Mô tả' phía trên khối mô tả */
+.label-description {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff6a33;
+    -fx-padding: 5 0 10 0;
+}
+
+/* Hiệu ứng chuyển động nhẹ khi di chuột vào */
+.description-area, .VBox {
+    -fx-transition: all 1.0s ease-in-out;
+}
+
+/*VBox:hover, .description-area:hover {*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 5, 5);*/
+/*    -fx-background-color: #ffe6cc;*/
+/*}*/
+
+/* Toàn bộ AnchorPane có khoảng cách các phần */
+AnchorPane > * {
+    -fx-margin: 20;
+}

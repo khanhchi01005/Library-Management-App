@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" stylesheets="@../styles/detailBookStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminController.DetailBookController">
+   <children>
+      <!-- Hình ảnh sách -->
+      <ImageView fx:id="bookImageView" fitHeight="333.33" fitWidth="250.0" layoutX="61.0" layoutY="70.0" preserveRatio="true" />
+
+      <!-- Thông tin sách -->
+      <VBox layoutX="359.0" layoutY="28.0" prefHeight="400.0" prefWidth="300.0" spacing="10">
+         <children>
+            <Label styleClass="label-title" text="Tên sách:" />
+            <Label fx:id="titleLabel" styleClass="label-content" text="Lập trình JavaFX" />
+            <Label styleClass="label-title" text="Tác giả:" />
+            <Label fx:id="authorLabel" styleClass="label-content" text="Nguyễn Văn A" />
+            <Label styleClass="label-title" text="NXB:" />
+            <Label fx:id="publisherLabel" styleClass="label-content" text="Nhà xuất bản Khoa Học" />
+            <Label styleClass="label-title" text="Thể loại:" />
+            <Label fx:id="categoryLabel" styleClass="label-content" text="Công nghệ thông tin" />
+            <Label styleClass="label-title" text="Năm xuất bản:" />
+            <Label fx:id="yearLabel" styleClass="label-content" text="2023" />
+            <Label styleClass="label-title" text="Số trang:" />
+            <Label fx:id="pageCountLabel" styleClass="label-content" text="300" />
+            <Label styleClass="label-title" text="Số sách còn lại:" />
+            <Label fx:id="availableLabel" styleClass="label-content" text="10" />
+         </children>
+      </VBox>
+
+      <!-- Mô tả sách -->
+      <Label layoutX="28.0" layoutY="470.0" styleClass="label-description" text="Mô tả:" />
+      <TextArea fx:id="descriptionArea" editable="false" layoutX="28.0" layoutY="511.0" prefHeight="160.0" prefWidth="313.0" styleClass="description-area" text="Đây là cuốn sách hướng dẫn lập trình JavaFX cơ bản đến nâng cao." wrapText="true" />
+   </children>
+</AnchorPane>

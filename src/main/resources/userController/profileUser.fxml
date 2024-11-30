@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1224.0" stylesheets="@../styles/profileUserStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userController.ProfileUserController">
+    <children>
+        <!-- Search Bar -->
+        <HBox layoutX="37.0" layoutY="169.0" spacing="10" />
+        <Button layoutX="19.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage1" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+        <Button layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage2" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+        <Button layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage3" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+        <Button layoutX="624.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage4" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+        <Button layoutX="825.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage5" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+        <Button layoutX="1027.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLogout" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+         <TextField fx:id="searchField" editable="false" layoutX="216.0" layoutY="168.0" prefHeight="531.0" prefWidth="790.0" />
+      <VBox layoutX="675.0" layoutY="200.0" prefHeight="250.0" prefWidth="300.0" spacing="10" stylesheets="@../styles/detailBookStyles.css">
+         <children>
+            <Label styleClass="label-title" text="ID:" />
+            <Label fx:id="IDLabel" styleClass="label-content" text="Lập trình JavaFX" />
+            <Label styleClass="label-title" text="Họ và tên:" />
+            <Label fx:id="fullnameLabel" styleClass="label-content" text="Nguyễn Văn A" />
+            <Label styleClass="label-title" text="Vai trò:" />
+            <Label fx:id="roleLabel" styleClass="label-content" text="Nhà xuất bản Khoa Học" />
+            <Label styleClass="label-title" text="Số điện thoại:" />
+            <Label fx:id="phonenumberLabel" styleClass="label-content" text="Công nghệ thông tin" />
+            <Label styleClass="label-title" text="Email:" />
+            <Label fx:id="emailLabel" styleClass="label-content" text="2023" />
+         </children>
+      </VBox>
+      <ImageView fx:id="userImageView" fitHeight="333.33" fitWidth="250.0" layoutX="297.0" layoutY="288.0" preserveRatio="true" />
+      <Text fill="#d96c3e" layoutX="307.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin cá nhân" textAlignment="CENTER" wrappingWidth="230.6785888671875">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Text>
+    </children>
+</AnchorPane>

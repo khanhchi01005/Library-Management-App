@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.LoginController">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="323.0" style="-fx-background-color: linear-gradient(#f5ad76, #d96c3e);" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="500.0" fitWidth="350.0" pickOnBounds="true">
+               <image>
+                  <Image url="@Images/Background.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="500.0" prefWidth="422.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="usernameField" layoutX="80.0" layoutY="204.0" prefHeight="32.0" prefWidth="188.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="246.0" prefHeight="32.0" prefWidth="188.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: linear-gradient(#f5ad76, #d96c3e); -fx-border-width: 0px 0px 2px 0px;" />
+            <Button fx:id="submitButton" layoutX="137.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="30.0" prefWidth="74.0" stylesheets="@../styles/loginStyles.css" text="Login" textFill="WHITE" />
+            <Hyperlink layoutX="113.0" layoutY="443.0" text="Forgot your password" textFill="#d96c3e" />
+            <Text fill="#d96c3e" layoutX="69.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libraby Login" textAlignment="CENTER" wrappingWidth="210.6785888671875">
+               <font>
+                  <Font size="27.0" />
+               </font>
+               <effect>
+                  <Blend />
+               </effect>
+            </Text>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
