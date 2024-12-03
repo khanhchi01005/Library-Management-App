@@ -1,5 +1,6 @@
 package services.book;
 
+import model.Database;
 import model.book.Book;
 
 import java.sql.*;
@@ -77,10 +78,28 @@ public class BookService {
         }
     }
 
+    //lay ten sach phuc vu quet QR
+    public String getBookTitle(int bookId){
+        String scanTitle = "";
+        String query = "SELECT title FROM books WHERE book_id = ?";
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1,bookId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                scanTitle = rs.getString("title");
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to search book: " + e.getMessage());
+        }
+        return scanTitle;
+    }
+
     // tim kiem sach theo ten
     public void searchBookByTitle(String title){
         String query = "SELECT * FROM books WHERE title LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + title + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -104,7 +123,7 @@ public class BookService {
     // tim kiem sach theo the loai
     public void searchBookByGenre(String category){
         String query = "SELECT * FROM books WHERE category LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + category + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -128,7 +147,7 @@ public class BookService {
     // tim kiem sach theo NXB
     public void searchBookByPublisher(String publisher) {
         String query = "SELECT * FROM books WHERE publisher LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + publisher + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -153,7 +172,7 @@ public class BookService {
         Book newBook = Book.bookApi(api_key,addTitle, amount);
 
         String query = "INSERT INTO books (title, author, category, year, pages, available_amount, image, description,publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             pstmt.setString(1,newBook.getTitle());
@@ -176,7 +195,7 @@ public class BookService {
     public void addBookManually (String title, String author, String category,int year, int pages, int available_amount, String image, String description, String publisher){
 
         String query = "INSERT INTO books (title, author, category, year, pages, available_amount, image, description,publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, title);
             pstmt.setString(2,author);
@@ -198,7 +217,7 @@ public class BookService {
     //them sach
     public Book getBookByTitle(String title) {
         String query = "SELECT * FROM books WHERE title = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, title);
             ResultSet rs = pstmt.executeQuery();
@@ -225,7 +244,7 @@ public class BookService {
     //xoa sach
     public void deleteBook(int bookId) {
         String query = "DELETE FROM books WHERE book_id =?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)  ){
             pstmt.setInt(1,bookId);
             int rowsAffected = pstmt.executeUpdate();
@@ -244,7 +263,7 @@ public class BookService {
     public void modifyTitle(int bookId, String title){
         String query ="UPDATE books SET title =? " + "WHERE book_id =?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,title);
             pstmt.setInt(2,bookId);
@@ -259,7 +278,7 @@ public class BookService {
     //sua author
     public void modifyAuthor(int bookId, String author) {
         String query = "UPDATE books SET author = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try(Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,author);
             pstmt.setInt(2,bookId);
@@ -272,7 +291,7 @@ public class BookService {
     //sua category
     public void modifyCategory(int bookId, String category) {
         String query = "UPDATE books SET category = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,category);
             pstmt.setInt(2,bookId);
@@ -285,7 +304,7 @@ public class BookService {
     //sua year
     public void modifyYear(int bookId, int year) {
         String query = "UPDATE books SET year = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setInt(1,year);
             pstmt.setInt(2,bookId);
@@ -298,7 +317,7 @@ public class BookService {
     //sua pages
     public void modifyPages(int bookId, int pages) {
         String query = "UPDATE books SET pages = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setInt(1,pages);
             pstmt.setInt(2,bookId);
@@ -311,7 +330,7 @@ public class BookService {
     //sua available_amount
     public void modifyAvailable_amount(int bookId, int available_amount) {
         String query = "UPDATE books SET  available_amount= ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setInt(1,available_amount);
             pstmt.setInt(2,bookId);
@@ -324,7 +343,7 @@ public class BookService {
     //sua image
     public void modifyImage(int bookId, String image) {
         String query = "UPDATE books SET image = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,image);
             pstmt.setInt(2,bookId);
@@ -337,7 +356,7 @@ public class BookService {
     //sua description
     public void modifyDescription(int bookId, String description) {
         String query = "UPDATE books SET description = ? " + "WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,description);
             pstmt.setInt(2,bookId);
@@ -350,7 +369,7 @@ public class BookService {
 
     public void modifyPublisher(int bookId, String publisher) {
         String query = "UPDATE books SET publisher =? " + "WHERE book_id =?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1, publisher);
             pstmt.setInt(2, bookId);

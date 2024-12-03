@@ -106,6 +106,21 @@ public class ReturnBookAdminController {
         }
     }
 
+    @FXML
+    public void handleOverdue(){
+        Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            TransactionService transactionService = new TransactionService();
+            transactionService.overdueNoti(selectedTransaction.getId());
+
+            MainApp.switchScene("/adminController/returnBookAdmin.fxml");
+
+        } else {
+            showAlert("Error", "Please select a transaction to accept.");
+        }
+
+    }
+
     // Tìm kiếm sách
     @FXML
     public void handleSearch() {

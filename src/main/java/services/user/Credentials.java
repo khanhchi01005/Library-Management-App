@@ -1,5 +1,6 @@
 package services.user;
 
+import model.Database;
 import model.SessionManager;
 
 import java.sql.Connection;
@@ -16,8 +17,8 @@ public class Credentials {
         String second_id = identification_id.substring(2, 4);
         //Kiem tra xem id nay ton tai trong database chua
         String query = "SELECT * FROM users WHERE identification_id = ?";
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            PreparedStatement pstmt = connection.prepareStatement(query)){
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1, identification_id);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
@@ -42,7 +43,7 @@ public class Credentials {
     public boolean checkUsername(String username){
         //Kiem tra xem username nay da ton tai torng database chua
         String query ="SELECT * FROM users WHERE username = ?";
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
             PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
@@ -58,7 +59,7 @@ public class Credentials {
     public boolean checkEmail(String email){
         //Kiem tra xem email nay da ton tai trong database chua
         String query = "SELECT * FROM users WHERE email = ?";
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
             PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
@@ -92,7 +93,7 @@ public class Credentials {
     public void register(String username, String password, String identificationId, String fullname, String email, String phonenumber) {
         if (checkUsername(username) && checkIdentification(identificationId) && checkEmail(email) && checkPhonenumber(phonenumber)) {
             String query = "INSERT INTO users (username, password, identification_id, fullname, email, phonenumber) VALUES (?, ?, ?, ?, ?, ?)";
-            try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            try (Connection connection = Database.getInstance().getConnection();
                  PreparedStatement pstmt = connection.prepareStatement(query)) {
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
@@ -113,7 +114,7 @@ public class Credentials {
 
     public void searchAccount(String username) {
         String query = "SELECT username, password, identification_id, fullname, email, phonenumber FROM users WHERE username LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, "%" + username + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -135,7 +136,7 @@ public class Credentials {
     // xu ly dang nhap
     public void login(String username, String password) {
         String query = "SELECT identification_id FROM users WHERE username = ? AND password = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             if (connection == null) {
@@ -171,7 +172,7 @@ public class Credentials {
     public void changePassword(String username, String newPassword) {
         String query = "SELECT * FROM users WHERE username = ?";
         boolean check = false;
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
             PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
@@ -183,7 +184,7 @@ public class Credentials {
         }
         if(check) {
             String update = "UPDATE users SET password = ?" + "WHERE username =?";
-            try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            try(Connection connection = Database.getInstance().getConnection();
                  PreparedStatement pstmt = connection.prepareStatement(update)) {
                 pstmt.setString(1, newPassword);
                 pstmt.setString(2, username);

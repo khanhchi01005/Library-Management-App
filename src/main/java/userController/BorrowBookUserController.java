@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.SessionManager;
 import model.transaction.Transaction;
 import services.transaction.TransactionService;
 
@@ -79,7 +80,7 @@ public class BorrowBookUserController {
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnedDate"));
 
         TransactionService transactionService = new TransactionService();
-        transactionList = FXCollections.observableArrayList(transactionService.getAllTransactions());
+        transactionList = FXCollections.observableArrayList(transactionService.getUserBorrow(SessionManager.getUsername()));
         transactionTable.setItems(transactionList);
 
     }

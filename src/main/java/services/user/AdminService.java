@@ -1,5 +1,6 @@
 package services.user;
 
+import model.Database;
 import model.user.Account;
 
 import java.sql.*;
@@ -30,8 +31,8 @@ public class AdminService {
     public List<Account> viewAccount() {
         List<Account> accounts = new ArrayList<>();
         String query = "SELECT user_id,username, password,identification_id,fullname,phonenumber,email FROM users ";
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()){
@@ -55,7 +56,7 @@ public class AdminService {
     // xoa tai khoan student
     public void deleteUser(int user_id) {
         String query = "DELETE FROM users WHERE user_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, user_id);
             pstmt.executeUpdate();

@@ -76,6 +76,8 @@ public class ReturnBookUserController {
 
     @FXML
     public void initialize() {
+        TransactionService transactionService = new TransactionService();
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
@@ -83,8 +85,6 @@ public class ReturnBookUserController {
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnedDate"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
 
-
-        TransactionService transactionService = new TransactionService();
         transactionList = FXCollections.observableArrayList(transactionService.getReturnUserTransactions(SessionManager.getUsername()));
         transactionTable.setItems(transactionList);
     }

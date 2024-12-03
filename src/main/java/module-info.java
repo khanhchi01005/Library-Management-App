@@ -4,11 +4,11 @@ module com.example.demo {
     requires java.sql;
     requires org.json;
     requires mysql.connector.j;
-    requires javafx.base;
     requires java.net.http;
     requires java.mail;
     requires com.google.zxing;
     requires java.desktop;
+    requires javafx.media;
 
     opens app to javafx.fxml;
     exports app;

@@ -1,11 +1,15 @@
 package utils.Mail;
 
+import services.transaction.TransactionService;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
 public class email {
-    public static void main(String[] args) {
+    private TransactionService transactionService = new TransactionService();
+
+    public void sendEmail(String email) {
         // Thiết lập các thuộc tính SMTP
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -24,11 +28,9 @@ public class email {
             // Tạo email
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("khanhchi01005@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("duongdangnghi@gmail.com"));
-            message.setSubject("binh duong oiiii");
-            message.setText("muahahhahaahahah");
-
-            // Gửi email
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Return Book Notification");
+            message.setText("Please return your borrowed book as soon as possible!!!!!!");
             Transport.send(message);
             System.out.println("Email sent successfully!");
         } catch (MessagingException e) {

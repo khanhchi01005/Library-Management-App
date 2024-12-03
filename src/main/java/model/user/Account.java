@@ -143,8 +143,6 @@ public class Account {
         return loggedIn;
     }
 
-    // xu ly dang xuat
-
     public void logout() {
         System.out.println("Logout successfully");
     };

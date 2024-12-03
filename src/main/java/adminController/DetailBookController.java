@@ -11,6 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.book.Book;
 import services.book.BookService;
+import utils.AI.DeepgramTTS;
+import utils.Sound.SoundUtils;
 
 import static services.book.BookService.*;
 
@@ -19,6 +21,9 @@ public class DetailBookController {
     // Kết nối các thành phần trong FXML với controller
     @FXML
     private ImageView bookImageView;  // Hình ảnh sách
+
+    @FXML
+    private ImageView bookQRImageView;  // Hình ảnh sách
 
     @FXML
     private Label titleLabel;  // Tên sách
@@ -37,6 +42,8 @@ public class DetailBookController {
 
     @FXML
     private TextArea descriptionArea; // Mô tả sách
+
+    private int id;
 
     // Phương thức khởi tạo controller, nơi bạn có thể thiết lập các giá trị ban đầu
     public void initialize() {
@@ -62,6 +69,8 @@ public class DetailBookController {
         BookService bookService = new BookService();
         bookService.viewOneBook(book.getId());
 
+        this.id = book.getId();
+
         try {
             titleLabel.setText(viewTitle);
             authorLabel.setText(viewAuthor);
@@ -78,5 +87,10 @@ public class DetailBookController {
             e.printStackTrace();
         }
     }
-}
 
+    public void handleBookSpeaker() {
+        DeepgramTTS deepgramTTS = new DeepgramTTS();
+        deepgramTTS.hearBook(id);
+        SoundUtils.playBackgroundMusic("output.mp3",false);
+    }
+}

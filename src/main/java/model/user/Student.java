@@ -12,9 +12,6 @@ public class Student extends Account {
     }
 
 
-
-
-
     public void studentViewBook() {
         viewBook();
     }
@@ -67,4 +64,3 @@ public class Student extends Account {
     }
 
 }
-
