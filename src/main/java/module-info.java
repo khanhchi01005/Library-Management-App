@@ -9,6 +9,7 @@ module com.example.demo {
     requires com.google.zxing;
     requires java.desktop;
     requires javafx.media;
+    requires java.dotenv;
 
     opens app to javafx.fxml;
     exports app;

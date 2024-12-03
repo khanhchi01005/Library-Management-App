@@ -2,15 +2,19 @@ package services.user;
 
 import model.Database;
 import model.SessionManager;
+import model.user.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static services.book.BookService.*;
 
 public class Credentials {
+
 
     public boolean checkIdentification(String identification_id) {
         String first_id = identification_id.substring(0, 2);

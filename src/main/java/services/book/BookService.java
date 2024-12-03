@@ -1,5 +1,6 @@
 package services.book;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import model.Database;
 import model.book.Book;
 
@@ -8,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookService {
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/uet_library";
-    public static final String DB_USER = "root";
-    public static final String DB_PASSWORD = "123456";
-    public static final String apiKey = "AIzaSyBfjT51wJH2HsApA1swWIU_66ngAmS3C9k";
+    static Dotenv dotenv = Dotenv.load();
+
+    public static final String apiKey = dotenv.get("apiKey");
     public static ResultSet rs;
     public static String viewTitle;
     public static String viewAuthor;;
@@ -30,7 +30,7 @@ public class BookService {
         List<Book> books = new ArrayList<>();
         String query = "SELECT  book_id, title, image, author, publisher, category, available_amount, pages FROM books";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try(Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -57,7 +57,7 @@ public class BookService {
     // xem 1 cuon sach bat ky
     public void viewOneBook(int bookId){
         String query = "SELECT title,author,category,year, pages,available_amount,image,description,publisher FROM books WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setInt(1, bookId);
 

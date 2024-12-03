@@ -13,7 +13,7 @@ public class AdminService {
 
     public void viewProfile(int user_id) {
         String query = "SELECT * FROM users WHERE user_id = ?";
-        try(Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
             PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, user_id);
             ResultSet rs = pstmt.executeQuery();

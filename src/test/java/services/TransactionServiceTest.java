@@ -11,9 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionServiceTest {
     private TransactionService transactionService;
+
     @BeforeEach
     void setUp() {
-        TransactionService transactionService = new TransactionService();
+        transactionService = new TransactionService();
     }
 
     @Test
@@ -44,4 +45,52 @@ class TransactionServiceTest {
         assertNotNull(transactions);
     }
 
+    @Test
+    void borrowBook() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        assertFalse(transactions.isEmpty(), "Transaction list should not be empty");
+        Transaction transaction = transactions.get(0);
+        String username = transaction.getUserName();
+        int book_id = transaction.getBookId();
+        String borrowed_date = transaction.getBorrowedDate();
+        String returned_date = transaction.getReturnedDate();
+        transactionService.borrowBook(username, book_id, borrowed_date, returned_date);
+        assertNotNull(transaction);
+    }
+
+    @Test
+    void acceptTransaction() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        assertFalse(transactions.isEmpty(), "Transaction list should not be empty");
+        Transaction transaction = transactions.get(0);
+        transactionService.acceptTransaction(transaction.getId());
+        assertNotNull(transaction);
+    }
+
+    @Test
+    void confirmTransaction() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        assertFalse(transactions.isEmpty(), "Transaction list should not be empty");
+        Transaction transaction = transactions.get(0);
+        transactionService.confirmTransaction(transaction.getId());
+        assertNotNull(transaction);
+    }
+
+    @Test
+    void deleteTransaction() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        assertFalse(transactions.isEmpty(), "Transaction list should not be empty");
+        Transaction transaction = transactions.get(0);
+        transactionService.deleteTransaction(transaction.getId());
+        assertNotNull(transaction);
+    }
+
+    @Test
+    void overdueNoti() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        assertFalse(transactions.isEmpty(), "Transaction list should not be empty");
+        Transaction transaction = transactions.get(0);
+        transactionService.overdueNoti(transaction.getId());
+        assertNotNull(transaction);
+    }
 }

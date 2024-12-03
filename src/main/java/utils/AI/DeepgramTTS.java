@@ -1,5 +1,6 @@
 package utils.AI;
 
+import model.Database;
 import org.json.JSONObject;
 import java.io.*;
 import java.net.URI;
@@ -81,7 +82,7 @@ public class DeepgramTTS {
     // Phương thức lấy thông tin sách từ cơ sở dữ liệu
     public static Book hearOneBook(int bookId) {
         String query = "SELECT title, author, category, year, pages, available_amount, description, publisher FROM books WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             pstmt.setInt(1, bookId);

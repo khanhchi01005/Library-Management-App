@@ -1,6 +1,6 @@
 package model.user;
 
-import model.transaction.Borrowed;
+//import model.transaction.Borrowed;
 
 public class Student extends Account {
     public Student() {
@@ -59,8 +59,8 @@ public class Student extends Account {
     // xem don tra sach
 
     public void studentBorrowBook(String username, int book_id, String borrowed_date, String returned_date) {
-        Borrowed borrowed = new Borrowed();
-        borrowed.borrowBook(username, book_id, borrowed_date, returned_date);
+//        Borrowed borrowed = new Borrowed();
+//        borrowed.borrowBook(username, book_id, borrowed_date, returned_date);
     }
 
 }

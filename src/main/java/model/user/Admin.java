@@ -2,8 +2,6 @@ package model.user;
 
 import model.Database;
 import services.book.BookService;
-import services.transaction.BorrowService;
-import services.transaction.ReturnService;
 import services.user.AdminService;
 
 import java.sql.Connection;
@@ -11,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Admin extends Account {
-    private ReturnService returnService = new ReturnService();
     private BookService service = new BookService();
-    private BorrowService borrowService = new BorrowService();
     private AdminService adminService = new AdminService();
 
     public Admin() {

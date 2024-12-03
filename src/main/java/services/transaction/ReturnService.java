@@ -1,14 +1,4 @@
-package services.transaction;
-
-import model.Database;
-
-import java.sql.*;
-import java.time.LocalDate;
-
-import static services.book.BookService.*;
-
-public class ReturnService {
-    private double fine = 0;
+//
 //    // tra sach
 //    public void returnBook(int borrowed_id, String returned_date) {
 //        String query = "SELECT borrowed_date, user_id, book_id FROM borrowed WHERE borrowed_id = ?";
@@ -85,4 +75,4 @@ public class ReturnService {
 //            System.err.println("Failed to view returned book: " + e.getMessage());
 //        }
 //    }
-}
+//}

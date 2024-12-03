@@ -1,20 +1,21 @@
 package model;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    // Biến static giữ instance duy nhất của lớp
     private static Database instance;
 
-    // Biến giữ Connection
     private Connection connection;
 
-    // URL, username, password cho database
-    private final String url = "jdbc:mysql://localhost:3306/uet_library";
-    private final String username = "root";
-    private final String password = "123456";
+    Dotenv dotenv = Dotenv.load();
+
+    private final String url = dotenv.get("url");
+    private final String username = dotenv.get("user");
+    private final String password =  dotenv.get("password");
 
     // Constructor private để ngăn việc tạo instance từ bên ngoài
     private Database() {
