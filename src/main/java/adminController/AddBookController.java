@@ -144,6 +144,12 @@ public class AddBookController {
         }
     }
 
+    //ham xu ly qr
+    void handleQR(){
+
+
+    }
+
     @FXML
     private void handleClose(ActionEvent event) {
         // Handle "Quick Add" button click event

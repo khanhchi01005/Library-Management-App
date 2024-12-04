@@ -163,16 +163,33 @@ public class TransactionService {
 
     //xoa don muon sach
     public void deleteTransaction(int transaction_id) {
+        int bookID = 0;
+        String queryBook = "SELECT book_id FROM transaction WHERE transaction_id = ?";
+        String updateBook = "UPDATE books SET available_amount = available_amount +1 WHERE book_id = ?";
         String query = "DELETE FROM transaction WHERE transaction_id = ?";
 
-        try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = Database.getInstance().getConnection()) {
+            //lay book ID
+            try (PreparedStatement pstmt = connection.prepareStatement(queryBook)) {
+                pstmt.setInt(1, transaction_id);
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    bookID = rs.getInt("book_id");
+                }
+            }
 
-            // Set the transaction_id parameter
-            pstmt.setInt(1, transaction_id);
+            //update so luong sach
+            try (PreparedStatement pstmt = connection.prepareStatement(updateBook)) {
+                pstmt.setInt(1, bookID);
+                pstmt.executeUpdate();
+            }
 
-            // Execute the query
-            pstmt.executeUpdate();
+            //xoa khoi db
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             System.err.println("Failed to delete transaction: " + e.getMessage());
             e.printStackTrace();  // More detailed logging
@@ -196,13 +213,33 @@ public class TransactionService {
 
     // duyet cac don tra sach
     public void confirmTransaction(int transaction_id) {
+        int bookID =0;
         String query = "UPDATE transaction SET state = 'Returned' WHERE transaction_id = ?";
+        String queryBook = "SELECT book_id FROM transaction WHERE transaction_id = ?";
+        String updateBook = "UPDATE books SET available_amount = available_amount +1 WHERE book_id = ?";
 
-        try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
 
-            pstmt.setInt(1, transaction_id);
-            pstmt.executeUpdate();
+            //lay book ID
+            try (PreparedStatement pstmt = connection.prepareStatement(queryBook)) {
+                pstmt.setInt(1, transaction_id);
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    bookID = rs.getInt("book_id");
+                }
+            }
+
+            //update
+            try (PreparedStatement pstmt = connection.prepareStatement(updateBook)) {
+                pstmt.setInt(1, bookID);
+                pstmt.executeUpdate();
+            }
+
+
         } catch (SQLException e) {
             System.err.println("Failed to confirm transaction: " + e.getMessage());
             e.printStackTrace();  // More detailed logging
