@@ -1,11 +1,21 @@
 package services.book;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import io.github.cdimascio.dotenv.Dotenv;
 import model.Database;
 import model.book.Book;
+import services.book.QR;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URLEncoder;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class BookService {
@@ -31,8 +41,8 @@ public class BookService {
         String query = "SELECT  book_id, title, image, author, publisher, category, available_amount, pages FROM books";
 
         try(Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Book book = new Book(
@@ -212,6 +222,10 @@ public class BookService {
         } catch (SQLException e) {
             System.err.println("Failed to add new book: " + e.getMessage());
         }
+
+        //tao qr
+        QR qr = new QR();
+        qr.createQR(title);
     }
 
     //them sach
@@ -274,12 +288,15 @@ public class BookService {
             System.err.println("Failed to modify book: " + e.getMessage());
         }
 
+        QR qr = new QR();
+        qr.createQR(title);
+
     }
     //sua author
     public void modifyAuthor(int bookId, String author) {
         String query = "UPDATE books SET author = ? " + "WHERE book_id = ?";
         try(Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)){
+            PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setString(1,author);
             pstmt.setInt(2,bookId);
             pstmt.executeUpdate();
