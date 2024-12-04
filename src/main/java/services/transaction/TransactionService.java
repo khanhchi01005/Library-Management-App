@@ -1,6 +1,8 @@
 package services.transaction;
 
+import model.Database;
 import model.transaction.Transaction;
+import utils.Mail.email;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,12 +17,12 @@ public class TransactionService {
 
     }
 
-    //Thuc hien xem list cac don muon sach cua admin
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date FROM transaction WHERE state ='Not accepted' ";
+        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date FROM transaction";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        // chua su dung singleton: Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -43,18 +45,48 @@ public class TransactionService {
     }
 
 
-    //hien danh sach muon cua user
-    public List<Transaction> getUserTransactions(String username) {
+    //Thuc hien xem list cac don muon sach cua admin
+    public List<Transaction> getAdminTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        String query = "SELECT transaction_id, book_id, book_title, borrowed_date, returned_date FROM transaction WHERE username = ? , state ='Not accepted'";
+        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date FROM transaction WHERE state = 'Not accepted'";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        // chua su dung singleton: Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Transaction transaction = new Transaction(
                         rs.getInt("transaction_id"),
+                        rs.getString("username"),
+                        rs.getInt("book_id"),
+                        rs.getString("book_title"),
+                        rs.getString("borrowed_date"),
+                        rs.getString("returned_date")
+                );
+                transactions.add(transaction);
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to fetch transactions: " + e.getMessage());
+            e.printStackTrace();  // More detailed logging
+        }
+        return transactions;
+    }
+
+    //hien danh sach muon cua user
+    public List<Transaction> getUserTransactions(String username) {
+        List<Transaction> transactions = new ArrayList<>();
+        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date FROM transaction WHERE username = ? AND state = 'Not accepted'";
+
+        try(Connection connection = Database.getInstance().getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(query)){
+            pstmt.setString(1,username);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Transaction transaction = new Transaction(
+                        rs.getInt("transaction_id"),
+                        rs.getString("username"),
                         rs.getInt("book_id"),
                         rs.getString("book_title"),
                         rs.getString("borrowed_date"),
@@ -72,9 +104,9 @@ public class TransactionService {
     //Hien cac don tra sach
     public List<Transaction> getReturnTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date,state FROM transaction WHERE state IN('Borrowing', 'Returned' )";
+        String query = "SELECT transaction_id, username, book_id, book_title, borrowed_date, returned_date,state FROM transaction WHERE state IN('Borrowing', 'Returned', 'Overdue' )";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -97,13 +129,14 @@ public class TransactionService {
         return transactions;
     }
 
+    //hien danh sach tra sach cua nguoi dung
     public List<Transaction> getReturnUserTransactions(String username) {
         List<Transaction> transactions = new ArrayList<>();
         String query = "SELECT transaction_id, book_id, book_title, borrowed_date, returned_date, state " +
                 "FROM transaction " +
                 "WHERE username = ? AND state IN ('Borrowing', 'Returned')";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             // Set the username parameter
@@ -132,16 +165,33 @@ public class TransactionService {
 
     //xoa don muon sach
     public void deleteTransaction(int transaction_id) {
+        int bookID = 0;
+        String queryBook = "SELECT book_id FROM transaction WHERE transaction_id = ?";
+        String updateBook = "UPDATE books SET available_amount = available_amount +1 WHERE book_id = ?";
         String query = "DELETE FROM transaction WHERE transaction_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = Database.getInstance().getConnection()) {
+            //lay book ID
+            try (PreparedStatement pstmt = connection.prepareStatement(queryBook)) {
+                pstmt.setInt(1, transaction_id);
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    bookID = rs.getInt("book_id");
+                }
+            }
 
-            // Set the transaction_id parameter
-            pstmt.setInt(1, transaction_id);
+            //update so luong sach
+            try (PreparedStatement pstmt = connection.prepareStatement(updateBook)) {
+                pstmt.setInt(1, bookID);
+                pstmt.executeUpdate();
+            }
 
-            // Execute the query
-            pstmt.executeUpdate();
+            //xoa khoi db
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
+
         } catch (SQLException e) {
             System.err.println("Failed to delete transaction: " + e.getMessage());
             e.printStackTrace();  // More detailed logging
@@ -152,7 +202,7 @@ public class TransactionService {
     public void acceptTransaction(int transaction_id) {
         String query = "UPDATE transaction SET state = 'Borrowing' WHERE transaction_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             pstmt.setInt(1, transaction_id);
@@ -163,20 +213,86 @@ public class TransactionService {
         }
     }
 
+    // duyet cac don tra sach
     public void confirmTransaction(int transaction_id) {
+        int bookID =0;
         String query = "UPDATE transaction SET state = 'Returned' WHERE transaction_id = ?";
+        String queryBook = "SELECT book_id FROM transaction WHERE transaction_id = ?";
+        String updateBook = "UPDATE books SET available_amount = available_amount +1 WHERE book_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
 
-            pstmt.setInt(1, transaction_id);
-            pstmt.executeUpdate();
+            //lay book ID
+            try (PreparedStatement pstmt = connection.prepareStatement(queryBook)) {
+                pstmt.setInt(1, transaction_id);
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    bookID = rs.getInt("book_id");
+                }
+            }
+
+            //update
+            try (PreparedStatement pstmt = connection.prepareStatement(updateBook)) {
+                pstmt.setInt(1, bookID);
+                pstmt.executeUpdate();
+            }
+
+
         } catch (SQLException e) {
             System.err.println("Failed to confirm transaction: " + e.getMessage());
             e.printStackTrace();  // More detailed logging
         }
     }
 
+    //thong bao tra sach muon
+    public void overdueNoti(int transaction_id){
+        String emailSent ="";
+        String username ="";
+        String query = "UPDATE transaction SET state = 'Overdue' WHERE transaction_id = ?";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to send notification: " + e.getMessage());
+            e.printStackTrace();  // More detailed logging
+        }
+        String userQuery = "SELECT username FROM transaction WHERE transaction_id =?";
+        String emailQuery= "SELECT email FROM users WHERE username = ?";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setInt(1, transaction_id);
+                pstmt.executeUpdate();
+            }
+            //truy van ten nguoi dung
+            try(PreparedStatement pstmt = connection.prepareStatement(userQuery)) {
+                pstmt.setInt(1, transaction_id);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()){
+                    username = rs.getString("username");
+                }
+            }
+            //truy van email nguoi dung
+            try(PreparedStatement pstmt = connection.prepareStatement(emailQuery)){
+                pstmt.setString(1,username);
+                ResultSet rs = pstmt.executeQuery();
+                while(rs.next()){
+                    emailSent = rs.getString("email");
+                }
+            }
+            email mail = new email();
+            mail.sendEmail(emailSent);
+        } catch (SQLException e) {
+            System.err.println("Failed to send notification: " + e.getMessage());
+            e.printStackTrace();  // More detailed logging
+        }
+
+    }
 
     // student thuc hien muon sach
     public void borrowBook(String username, int book_id, String borrowed_date, String returned_date) {
@@ -185,7 +301,7 @@ public class TransactionService {
         String insertBorrowed = "INSERT INTO transaction (username, book_id, book_title, borrowed_date, returned_date,state) VALUES (?, ?, ?, ?, ?, ?)";
         String updateBook = "UPDATE books SET available_amount = available_amount - 1 WHERE book_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection connection = Database.getInstance().getConnection()) {
             // kiem tra so luong sach va lay title
             String bookTitle = null;
             try (PreparedStatement checkStmt = connection.prepareStatement(checkAvailability)) {

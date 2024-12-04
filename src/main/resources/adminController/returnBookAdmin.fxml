@@ -1,44 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1224.0" stylesheets="@../styles/returnBookAdminStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminController.ReturnBookAdminController">
+<AnchorPane prefHeight="768.0" prefWidth="1298.4" stylesheets="@../styles/returnBookAdminStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController.ReturnBookAdminController">
     <children>
-        <!-- Search Bar -->
-        <HBox layoutX="37.0" layoutY="169.0" spacing="10">
-            <TextField fx:id="searchField" prefHeight="34.0" prefWidth="361.0" />
-            <Button fx:id="searchButton" onAction="#handleSearch" text="Search" />
-        </HBox>
+      <Pane layoutX="347.0" layoutY="90.0" prefHeight="118.0" prefWidth="916.0" style="-fx-background-color: linear-gradient(#6a1b9a, #8e44ad); -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="74.0" layoutY="11.0" text="Return book Management" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="67.0" fitWidth="46.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/bookPile.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
 
-        <TableView fx:id="transactionTable" layoutX="37.0" layoutY="224.0" prefHeight="384.0" prefWidth="1150.0">
+        <TableView fx:id="transactionTable" layoutX="347.0" layoutY="149.0" prefHeight="586.0" prefWidth="916.0">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="55.999996185302734" text="ID" />
                 <TableColumn fx:id="usernameColumn" minWidth="1.5999755859375" prefWidth="211.19996643066406" text="Username" />
-                <TableColumn fx:id="bookIdColumn" prefWidth="164.00006103515625" text="ID sách" />
-                <TableColumn fx:id="bookNameColumn" prefWidth="220.0" text="Tên sách" />
-                <TableColumn fx:id="borrowDateColumn" minWidth="0.0" prefWidth="200.0" text="Ngày mượn" />
-                <TableColumn fx:id="returnDateColumn" minWidth="0.0" prefWidth="200.0" text="Ngày trả" />
-                <TableColumn fx:id="stateColumn" minWidth="0.0" prefWidth="200.0" text="Trạng thái" />
+                <TableColumn fx:id="bookIdColumn" prefWidth="164.00006103515625" text="Book ID" />
+                <TableColumn fx:id="bookNameColumn" prefWidth="220.0" text="Book name" />
+                <TableColumn fx:id="borrowDateColumn" minWidth="0.0" prefWidth="200.0" text="Borrow date" />
+                <TableColumn fx:id="returnDateColumn" minWidth="0.0" prefWidth="200.0" text="Return date" />
+                <TableColumn fx:id="stateColumn" minWidth="0.0" prefWidth="200.0" text="Status" />
 
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-
-        <!-- Action Buttons -->
-        <HBox layoutX="1029.0" layoutY="171.0" spacing="10" />
-        <Button layoutX="19.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage1" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage2" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage3" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="624.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage4" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="825.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage5" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="1027.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLogout" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button fx:id="confirmButton" layoutX="1103.0" layoutY="171.0" onAction="#handleConfirm" text="Confirm" />
+        <Button fx:id="confirmButton" layoutX="27.0" layoutY="654.0" onAction="#handleConfirm" prefHeight="80.0" prefWidth="136.0" />
+      <Button fx:id="overdueButton" layoutX="187.0" layoutY="654.0" onAction="#handleOverdue" prefHeight="80.0" prefWidth="136.0" />
+         <TextField fx:id="searchField" layoutX="347.0" layoutY="43.0" prefHeight="34.0" prefWidth="916.0" />
+         <Button fx:id="searchButton" layoutX="1188.0" layoutY="45.0" onAction="#handleSearch" text="Search" />
+      <ImageView fitHeight="30.0" fitWidth="21.0" layoutX="41.0" layoutY="684.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/v.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="73.0" layoutY="680.0" mouseTransparent="true" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="230.0" layoutY="679.0" mouseTransparent="true" text="Overdue" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="199.0" layoutY="679.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/overdue.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="noticePane" layoutX="27.0" layoutY="149.0" prefHeight="241.0" prefWidth="294.0">
+         <children>
+            <Label layoutX="103.0" layoutY="14.0" text="Notice">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField" layoutX="13.0" layoutY="61.0" prefHeight="54.0" prefWidth="270.0" text="If the user has returned the book, press the confirm button." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField1" layoutX="11.0" layoutY="122.0" prefHeight="100.0" prefWidth="270.0" text="If the user has not returned the book by the due date, press the Overdue button, the system will send a reminder email." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="-12.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/notice.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

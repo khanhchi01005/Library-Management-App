@@ -1,10 +1,9 @@
-.root {
-    -fx-background-image: url('../userController/Images/12.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center;
-}
-
-.button:hover {
-    -fx-cursor: hand;
+#noticePane {
+    -fx-background-color: white; /* Nền trắng */
+    -fx-border-color: #8e44ad; /* Viền tím đậm */
+    -fx-border-width: 2px; /* Độ dày viền */
+    -fx-border-radius: 12px; /* Bo tròn góc */
+    -fx-background-radius: 12px; /* Bo tròn nền */
+    -fx-padding: 15px; /* Khoảng cách bên trong */
+    -fx-effect: dropshadow(gaussian, rgba(142, 68, 173, 0.4), 10, 0, 3, 3); /* Hiệu ứng bóng tím */
 }

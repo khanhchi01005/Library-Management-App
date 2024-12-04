@@ -1,6 +1,7 @@
 package services.user;
 
 import model.SessionManager;
+import model.user.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -197,4 +198,29 @@ public class Credentials {
             System.out.println("Cannot find user to change password");
         }
     }
+
+    public Account getAccountInfo(String username) {
+        String query = "SELECT * FROM users WHERE username = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("user_id");
+                String password = rs.getString("password");
+                String identificationId = rs.getString("identification_id");
+                String fullname = rs.getString("fullname");
+                String email = rs.getString("email");
+                String phonenumber = rs.getString("phonenumber");
+
+                return new Account(id, username, password, identificationId, fullname, phonenumber, email);
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to retrieve account information: " + e.getMessage());
+        }
+        return null; // Return null if no user is found or an error occurs
+    }
+
+
 }

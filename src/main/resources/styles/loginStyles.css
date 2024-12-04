@@ -1,19 +1,88 @@
-.button {
-    -fx-background-color: linear-gradient(#f5ad76, #d96c3e); /* Gradient cam */
-    -fx-text-fill: white; /* Màu chữ trắng */
-    -fx-font-size: 14px;
-    -fx-padding: 5px 15px;
-    -fx-border-radius: 8px; /* Bo tròn */
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2); /* Hiệu ứng bóng */
+.root {
+    -fx-background-image: url('../Images/bg2.gif');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: rgba(0, 0, 0, 0.5);
 }
 
-.button:hover {
-    -fx-background-color: linear-gradient(#fcd1a1, #f1975b); /* Gradient cam nhạt hơn */
+#background {
+    -fx-background-color: linear-gradient(to bottom, #7b68ee, #9370db); /* Nền tổng thể tím nhạt */
+}
+
+/* Đặt màu nền và viền cho loginPane */
+#loginPane {
+    -fx-background-color: rgba(138, 43, 226, 0.8); /* Màu tím nhạt với độ trong suốt 80% */
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0.5, 0, 0);
+    -fx-border-width: 2px;
+    -fx-border-insets: -1;
+    -fx-border-color: linear-gradient(to right, #8a2be2, #9370db); /* Viền gradient tím */
+}
+
+/* Văn bản tiêu đề */
+Text {
+    -fx-fill: #ffffff; /* Màu trắng nổi bật trên nền tím */
+}
+
+/* Văn bản nhãn USERNAME và PASSWORD */
+#usernameText, #passwordText {
+    -fx-fill: #d8bfd8; /* Màu tím nhạt hơn cho nhãn */
+    -fx-font-size: 12px;
+}
+
+/* TextField và PasswordField */
+TextField, PasswordField {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Nền trắng trong suốt nhẹ */
+    -fx-border-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white; /* Màu chữ tím đậm */
+    -fx-font-weight: bold;
+}
+
+/* Màu placeholder (prompt text) */
+TextField:focused, PasswordField:focused {
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5); /* Placeholder màu trắng mờ khi focus */
+}
+
+TextField, PasswordField {
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5); /* Placeholder màu trắng mờ */
+}
+
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #9370db; /* Viền tím nhạt khi focus */
+    -fx-border-width: 2px;
+}
+
+/* Nút bấm Login */
+#submitButton {
+    -fx-background-color: linear-gradient(to right, #9370db, #8a2be2); /* Gradient từ tím nhạt đến đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-pref-height: 40px;
     -fx-cursor: hand;
 }
 
-.button:pressed {
-    -fx-background-color: #d96c3e; /* Màu cam đậm */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3); /* Bóng đậm hơn */
+#submitButton:hover {
+    -fx-background-color: linear-gradient(to right, #8a2be2, #9370db); /* Đổi chiều gradient khi hover */
+}
+
+#submitButton:pressed {
+    -fx-background-color: #8a2be2; /* Tím đậm hơn khi nhấn */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.4, 0, 2);
+}
+
+#profileCircle {
+    -fx-fill: linear-gradient(to bottom, #9370db, #8a2be2); /* Gradient tím */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 0, 0); /* Bóng nhẹ */
+}
+
+/* Icon trong ImageView */
+ImageView {
+    -fx-opacity: 0.8; /* Giảm nhẹ độ sáng của icon */
 }

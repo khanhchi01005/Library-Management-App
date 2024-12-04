@@ -134,15 +134,15 @@ public class Admin extends Account {
     }
 
     // xoa tai khoan student
-    public void deleteUser(String user_id) {
-        String query = "DELETE FROM users WHERE user_id = ?";
-        try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, user_id);
-            pstmt.executeUpdate();
-            System.out.println("Successfully deleted user with id: " + user_id);
-        } catch (SQLException e) {
-            System.err.println("Failed to delete user: " + e.getMessage());
-        }
-    }
+//    public void deleteUser(String user_id) {
+//        String query = "DELETE FROM users WHERE user_id = ?";
+//        try (Connection conn = Database.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            pstmt.setString(1, user_id);
+//            pstmt.executeUpdate();
+//            System.out.println("Successfully deleted user with id: " + user_id);
+//        } catch (SQLException e) {
+//            System.err.println("Failed to delete user: " + e.getMessage());
+//        }
+//    }
 }

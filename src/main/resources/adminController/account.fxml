@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1224.0" stylesheets="@../styles/accountStyles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="adminController.AccountController">
+<AnchorPane prefHeight="768.0" prefWidth="1298.4" stylesheets="@../styles/accountStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController.AccountController">
     <children>
-        <!-- Search Bar -->
-        <HBox layoutX="37.0" layoutY="169.0" spacing="10">
-            <TextField fx:id="searchField" prefHeight="34.0" prefWidth="361.0" />
-            <Button fx:id="searchButton" onAction="#handleSearch" text="Search" />
-        </HBox>
+      <Pane layoutX="347.0" layoutY="89.0" prefHeight="118.0" prefWidth="916.0" style="-fx-background-color: linear-gradient(#6a1b9a, #8e44ad); -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="74.0" layoutY="11.0" text="Account Management" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="67.0" fitWidth="46.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/user2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
 
         <!-- TableView -->
-        <TableView fx:id="accountTable" layoutX="37.0" layoutY="224.0" prefHeight="384.0" prefWidth="1150.0">
+        <TableView fx:id="accountTable" layoutX="347.0" layoutY="149.0" prefHeight="586.0" prefWidth="916.0">
             <columns>
-                <TableColumn fx:id="idColumn" prefWidth="55.999996185302734" text="ID" />
+                <TableColumn fx:id="idColumn" prefWidth="55.999996185302734" text="User ID" />
                 <TableColumn fx:id="usernameColumn" prefWidth="130.4000244140625" text="Username" />
                 <TableColumn fx:id="passwordColumn" minWidth="1.5999755859375" prefWidth="140.80003356933594" text="Password" />
-                <TableColumn fx:id="identificationIdColumn" prefWidth="123.99996948242188" text="Identification ID" />
+                <TableColumn fx:id="identificationIdColumn" prefWidth="123.99996948242188" text="Role ID" />
                 <TableColumn fx:id="fullnameColumn" prefWidth="220.0" text="Fullname" />
                 <TableColumn fx:id="phonenumberColumn" minWidth="0.0" prefWidth="220.0" text="Phone number" />
                 <TableColumn fx:id="emailColumn" prefWidth="220.0" text="Email" />
@@ -30,17 +43,127 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-
-        <!-- Action Buttons -->
-        <HBox layoutX="1045.0" layoutY="171.0" spacing="10">
-            <Button fx:id="addButton" onAction="#handleAdd" text="Add" />
-            <Button fx:id="deleteButton" onAction="#handleDelete" text="Delete" />
-        </HBox>
-        <Button layoutX="19.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage1" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage2" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage3" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="624.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage4" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="825.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage5" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="1027.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLogout" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
+         <TextField fx:id="searchField" layoutX="347.0" layoutY="43.0" prefHeight="34.0" prefWidth="916.0" />
+         <Button fx:id="searchButton" layoutX="1188.0" layoutY="45.0" onAction="#handleSearch" text="Search" />
+      <Button fx:id="addButton" layoutX="27.0" layoutY="655.0" onAction="#handleAdd" prefHeight="80.0" prefWidth="136.0" />
+      <Button fx:id="deleteButton" layoutX="187.0" layoutY="655.0" onAction="#handleDelete" prefHeight="80.0" prefWidth="136.0" />
+      <ImageView fitHeight="30.0" fitWidth="21.0" layoutX="59.0" layoutY="684.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Icons/add.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="91.0" layoutY="680.0" mouseTransparent="true" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="204.0" layoutY="679.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Icons/delete.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="240.0" layoutY="681.0" mouseTransparent="true" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Pane fx:id="detailPane" layoutX="27.0" layoutY="148.0" prefHeight="298.0" prefWidth="294.0">
+         <children>
+            <Label layoutX="103.0" layoutY="14.0" text="Profile">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="76.0" text="User ID">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="userIDField" layoutX="83.0" layoutY="76.0" text="User ID">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="106.0" text="Username">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="136.0" text="Password">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="166.0" text="Role ID">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="196.0" text="Fullname">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="226.0" text="Phone number">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="257.0" prefWidth="46.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="usernameField" layoutX="99.0" layoutY="106.0" text="Username">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordField" layoutX="95.0" layoutY="136.0" text="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="roleIDField" layoutX="78.0" layoutY="166.0" text="Role ID">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="fullnameField" layoutX="93.0" layoutY="196.0" text="Fullname">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="phoneNumberField" layoutX="138.0" layoutY="226.0" text="Phone number">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailField" layoutX="66.0" layoutY="257.0" text="Email">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="noticePane" layoutX="27.0" layoutY="462.0" prefHeight="176.0" prefWidth="294.0">
+         <children>
+            <Label layoutX="103.0" layoutY="14.0" text="Notice">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField" layoutX="13.0" layoutY="44.0" prefHeight="127.0" prefWidth="268.0" text="Library accounts must be registered directly at the library. If you need to edit account information, delete the old account and then add a new." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="-10.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/notice.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

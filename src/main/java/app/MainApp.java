@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.Sound.SoundUtils;
 
 public class MainApp extends Application {
     private static Stage primaryStage;
@@ -15,18 +16,13 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Tải file FXML cho Stage 1 và set controller
         MainApp.primaryStage = primaryStage;
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/adminController/main.fxml"));
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/adminController/login.fxml"));
         Parent root = loader1.load();
-        Scene scene1 = new Scene(root, 1224, 768);
+//        SoundUtils.playBackgroundMusic("src/main/resources/Sound/bgm.m4a", true);
+        Scene scene1 = new Scene(root, 1366, 768);
         primaryStage.setScene(scene1);
         primaryStage.setTitle("PageTurners Library");
         primaryStage.setResizable(false);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1.5), root);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
-
         primaryStage.show();
     }
 
@@ -34,7 +30,7 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 1224, 768);
+            Scene scene = new Scene(root, 1366, 768);
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
 
