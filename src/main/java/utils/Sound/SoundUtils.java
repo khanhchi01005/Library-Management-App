@@ -42,5 +42,9 @@ public class SoundUtils {
             mediaPlayer.setVolume(volume); // Giá trị từ 0.0 (tắt) đến 1.0 (max)
         }
     }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 }
 

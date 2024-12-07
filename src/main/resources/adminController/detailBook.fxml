@@ -6,45 +6,116 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" stylesheets="@../styles/detailBookStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController.DetailBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" stylesheets="@../styles/detailBookStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController.DetailBookController">
    <children>
       <!-- Hình ảnh sách -->
-      <ImageView fx:id="bookImageView" fitHeight="333.33" fitWidth="250.0" layoutX="60.0" layoutY="28.0" preserveRatio="true" />
-
-      <!-- Thông tin sách -->
-      <VBox layoutX="359.0" layoutY="28.0" prefHeight="400.0" prefWidth="300.0" spacing="10">
+      <ImageView fx:id="bookImageView" fitHeight="266.67" fitWidth="200.0" layoutX="64.0" layoutY="121.0" />
+      <ImageView fx:id="bookQRImageView" fitHeight="200.0" fitWidth="200.0" layoutX="64.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane fx:id="detailPane" layoutX="321.0" layoutY="162.0" prefHeight="226.0" prefWidth="414.0">
          <children>
-            <Label styleClass="label-title" text="Tên sách:" />
-            <Label fx:id="titleLabel" styleClass="label-content" text="Lập trình JavaFX" />
-            <Label styleClass="label-title" text="Tác giả:" />
-            <Label fx:id="authorLabel" styleClass="label-content" text="Nguyễn Văn A" />
-            <Label styleClass="label-title" text="NXB:" />
-            <Label fx:id="publisherLabel" styleClass="label-content" text="Nhà xuất bản Khoa Học" />
-            <Label styleClass="label-title" text="Thể loại:" />
-            <Label fx:id="categoryLabel" styleClass="label-content" text="Công nghệ thông tin" />
-            <Label styleClass="label-title" text="Năm xuất bản:" />
-            <Label fx:id="yearLabel" styleClass="label-content" text="2023" />
-            <Label styleClass="label-title" text="Số trang:" />
-            <Label fx:id="pageCountLabel" styleClass="label-content" text="300" />
-            <Label styleClass="label-title" text="Số sách còn lại:" />
-            <Label fx:id="availableLabel" styleClass="label-content" text="10" />
+            <Label layoutX="25.0" layoutY="22.0" styleClass="label-title" text="Author:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="authorLabel" layoutX="184.0" layoutY="22.0" styleClass="label-content" text="Nguyễn Văn A">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="52.0" styleClass="label-title" text="Publisher:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="publisherLabel" layoutX="184.0" layoutY="52.0" styleClass="label-content" text="Nhà xuất bản Khoa Học">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="116.0" styleClass="label-title" text="Category:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="categoryLabel" layoutX="184.0" layoutY="116.0" styleClass="label-content" text="Công nghệ thông tin">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="84.0" styleClass="label-title" text="Year:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="yearLabel" layoutX="184.0" layoutY="84.0" styleClass="label-content" text="2023">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="148.0" styleClass="label-title" text="Pages:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="pageCountLabel" layoutX="184.0" layoutY="148.0" styleClass="label-content" text="300">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="180.0" styleClass="label-title" text="Available Amount:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="availableLabel" layoutX="184.0" layoutY="180.0" styleClass="label-content" text="10">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
-      </VBox>
+      </Pane>
 
       <!-- Mô tả sách -->
-      <Label layoutX="28.0" layoutY="470.0" styleClass="label-description" text="Mô tả:" />
-      <TextArea fx:id="descriptionArea" editable="false" layoutX="28.0" layoutY="511.0" prefHeight="160.0" prefWidth="313.0" styleClass="description-area" text="Đây là cuốn sách hướng dẫn lập trình JavaFX cơ bản đến nâng cao." wrapText="true" />
-      <Button layoutX="83.0" layoutY="476.0" mnemonicParsing="false" onAction="#handleBookSpeaker" prefHeight="27.0" prefWidth="48.0">
+      <Label layoutX="321.0" layoutY="432.0" styleClass="label-description" text="Description:" textFill="#ab47bc">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font></Label>
+      <TextArea fx:id="descriptionArea" editable="false" layoutX="321.0" layoutY="473.0" prefHeight="162.0" prefWidth="414.0" styleClass="description-area" text="Đây là cuốn sách hướng dẫn lập trình JavaFX cơ bản đến nâng cao." wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
+      <Button fx:id="speakerButton" layoutX="454.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleBookSpeaker" prefHeight="27.0" prefWidth="48.0">
          <graphic>
             <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/sound.png" />
+                  <Image url="@../Images/sound2.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <ImageView fx:id="bookQRImageView" fitHeight="120.0" fitWidth="120.0" layoutX="185.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="35.0" prefHeight="50.0" prefWidth="726.0" styleClass="label-content" text="Book Title" textAlignment="CENTER" textFill="#ab47bc">
+         <font>
+            <Font name="System Bold" size="33.0" />
+         </font>
+      </Label>
+      <Label layoutX="321.0" layoutY="121.0" styleClass="label-description" text="Information" textFill="#ab47bc">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="muteButton" layoutX="514.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleMute" prefHeight="27.0" prefWidth="48.0">
+         <graphic>
+            <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/mute.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fx:id="loadingImage" fitHeight="700.0" fitWidth="800.0" layoutX="-1.0" mouseTransparent="true" pickOnBounds="true" />
    </children>
 </AnchorPane>

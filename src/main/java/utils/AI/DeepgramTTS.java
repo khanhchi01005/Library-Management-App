@@ -13,7 +13,7 @@ import static services.book.BookService.*;
 public class DeepgramTTS {
 
     private static final String DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-asteria-en";
-    private static final String DEEPGRAM_API_KEY = "97637cbb390c858b7eb9657c07ec41e36738b16d";// Load from environment variables
+    private static final String DEEPGRAM_API_KEY = "d3fe68a041d8b39d43adad159e8947c20e01ae11";// Load from environment variables
 
     static class Book {
         String title, author, publisher, category, description;

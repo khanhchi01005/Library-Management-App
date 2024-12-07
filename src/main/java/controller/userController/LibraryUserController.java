@@ -1,3 +1,7 @@
+/**
+ * Controller for managing the library user interface, including book browsing,
+ * searching, viewing details, and borrowing books.
+ */
 package controller.userController;
 
 import javafx.collections.FXCollections;
@@ -51,8 +55,11 @@ public class LibraryUserController {
     private ImageView bookImage;
 
     private BookService bookService;
-    private ObservableList<Book> bookList; // Danh sách gốc
+    private ObservableList<Book> bookList; // Original list of books
 
+    /**
+     * Initializes the controller and loads the book data into the table.
+     */
     @FXML
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -64,16 +71,16 @@ public class LibraryUserController {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("availableAmount"));
         pageColumn.setCellValueFactory(new PropertyValueFactory<>("pages"));
 
-        BookService bookService = new BookService();
+        bookService = new BookService();
         bookList = FXCollections.observableArrayList(bookService.getAllBooks());
         bookTable.setItems(bookList);
 
-        bookImage.setImage(new Image("file:" + "src/main/resources/Images/macdinh.jpg"));
+        bookImage.setImage(new Image("file:src/main/resources/Images/macdinh.jpg"));
 
         bookTable.setOnMouseClicked(event -> {
             Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
             if (selectedBook != null) {
-                String imagePath = selectedBook.getImage(); // Lấy đường dẫn hình ảnh từ đối tượng sách
+                String imagePath = selectedBook.getImage(); // Get image path from the book object
                 if (imagePath != null && !imagePath.isEmpty()) {
                     bookImage.setImage(new Image("file:" + imagePath));
                 }
@@ -81,41 +88,58 @@ public class LibraryUserController {
         });
     }
 
+    /**
+     * Refreshes the book list in the table view.
+     */
     public void refreshBookList() {
         bookList.clear();
         bookTable.refresh();
-        BookService bookService = new BookService();
         bookList = FXCollections.observableArrayList(bookService.getAllBooks());
         bookTable.setItems(bookList);
     }
 
+    /**
+     * Handles the borrow button action. If the selected book has an available amount of 0,
+     * an alert is displayed, and the borrowing process is prevented.
+     */
     @FXML
     public void handleBorrow() {
         Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
+            if (selectedBook.getAvailableAmount() > 0) {
+                try {
+                    BorrowBookController.show(selectedBook.getId(), SessionManager.getUsername(), this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                showAlert("Notification", "This book is currently out of stock and cannot be borrowed.");
+            }
+        } else {
+            showAlert("Notification", "Please select a book to borrow.");
+        }
+    }
+
+    /**
+     * Handles the detail button action, opening the detail view for the selected book.
+     */
+    @FXML
+    public void handleDetail() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
             try {
-                BorrowBookController.show(selectedBook.getId(), SessionManager.getUsername(), this); // Truyền sách được chọn vào EditBookController
+                DetailBookController.show(selectedBook);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Thông báo", "Vui lòng chọn một sách để chỉnh sửa.");
+            showAlert("Notification", "Please select a book to view details.");
         }
     }
 
-    // Thông tin sách
-    @FXML
-    public void handleDetail() {
-        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-        try {
-            // Mở Stage 2 khi nhấn Login
-            DetailBookController.show(selectedBook);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Tìm kiếm sách
+    /**
+     * Handles the search functionality, filtering the book list based on the search keyword.
+     */
     @FXML
     public void handleSearch() {
         String keyword = searchField.getText().toLowerCase();
@@ -133,6 +157,12 @@ public class LibraryUserController {
         bookTable.setItems(filteredList);
     }
 
+    /**
+     * Displays an alert dialog with the specified title and message.
+     *
+     * @param title   The title of the alert dialog.
+     * @param message The message to display in the alert dialog.
+     */
     protected void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

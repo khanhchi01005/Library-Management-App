@@ -91,5 +91,6 @@
             </ImageView>
          </children>
       </Pane>
+      <ImageView fx:id="loadingImage" fitHeight="768.0" fitWidth="1298.4" mouseTransparent="true" pickOnBounds="true" />
     </children>
 </AnchorPane>

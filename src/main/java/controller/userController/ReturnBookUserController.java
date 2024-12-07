@@ -8,6 +8,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.transaction.Transaction;
 import services.transaction.TransactionService;
 
+/**
+ * Controller for managing the return book functionality for users.
+ * This class displays user transactions and allows users to search and manage returns.
+ */
 public class ReturnBookUserController {
 
     @FXML
@@ -39,8 +43,20 @@ public class ReturnBookUserController {
 
     private ObservableList<Transaction> transactionList;
 
+    /**
+     * Initializes the controller, setting up the table columns and populating the transaction list.
+     */
     @FXML
     public void initialize() {
+        setupTableColumns();
+        loadTransactionData();
+        customizeStateColumn();
+    }
+
+    /**
+     * Sets up the table columns with the appropriate data mappings.
+     */
+    private void setupTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -48,12 +64,21 @@ public class ReturnBookUserController {
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowedDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnedDate"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+    }
 
-
+    /**
+     * Loads transaction data into the table from the transaction service.
+     */
+    private void loadTransactionData() {
         TransactionService transactionService = new TransactionService();
         transactionList = FXCollections.observableArrayList(transactionService.getReturnTransactions());
         transactionTable.setItems(transactionList);
+    }
 
+    /**
+     * Customizes the state column to apply conditional formatting based on transaction state.
+     */
+    private void customizeStateColumn() {
         stateColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String state, boolean empty) {
@@ -65,16 +90,16 @@ public class ReturnBookUserController {
                     setText(state);
                     switch (state) {
                         case "Borrowing":
-                            setStyle("-fx-background-color: #ffeb3b; -fx-text-fill: black;"); // Màu vàng
+                            setStyle("-fx-background-color: #ffeb3b; -fx-text-fill: black;"); // Yellow
                             break;
                         case "Returned":
-                            setStyle("-fx-background-color: #4caf50; -fx-text-fill: white;"); // Màu xanh lá
+                            setStyle("-fx-background-color: #4caf50; -fx-text-fill: white;"); // Green
                             break;
                         case "Overdue":
-                            setStyle("-fx-background-color: #f44336; -fx-text-fill: white;"); // Màu đỏ
+                            setStyle("-fx-background-color: #f44336; -fx-text-fill: white;"); // Red
                             break;
                         default:
-                            setStyle(""); // Mặc định
+                            setStyle("");
                             break;
                     }
                 }
@@ -82,21 +107,48 @@ public class ReturnBookUserController {
         });
     }
 
+    /**
+     * Refreshes the transaction list and reloads the table data.
+     */
     public void refreshTransactionList() {
         transactionList.clear();
+        loadTransactionData();
         transactionTable.refresh();
-        TransactionService transactionService = new TransactionService();
-        transactionList = FXCollections.observableArrayList(transactionService.getReturnTransactions());
-        transactionTable.setItems(transactionList);
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction list refreshed successfully.");
     }
 
-    // Tìm kiếm sách
+    /**
+     * Filters the transaction table based on the user's search input.
+     */
     @FXML
     public void handleSearch() {
+        String keyword = searchField.getText().toLowerCase();
+        ObservableList<Transaction> filteredList = FXCollections.observableArrayList();
+
+        for (Transaction transaction : transactionList) {
+            if (transaction.getUserName().toLowerCase().contains(keyword) ||
+                    transaction.getBookTitle().toLowerCase().contains(keyword) ||
+                    transaction.getState().toLowerCase().contains(keyword)) {
+                filteredList.add(transaction);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "No Results", "No transactions match your search criteria.");
+        } else {
+            transactionTable.setItems(filteredList);
+        }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    /**
+     * Displays an alert dialog to the user.
+     *
+     * @param alertType The type of alert (e.g., ERROR, INFORMATION, WARNING).
+     * @param title     The title of the alert.
+     * @param message   The message content of the alert.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.show();

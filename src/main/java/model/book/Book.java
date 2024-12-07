@@ -2,6 +2,7 @@ package model.book;
 
 import services.book.BookApi;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Book {
@@ -42,6 +43,17 @@ public class Book {
         this.year = year;
         this.pages = pages;
         this.available_amount = available_amount;
+        this.image = image;
+        this.description = description;
+        this.publisher = publisher;
+    }
+
+    public Book(String title, String author, String category, int year, int pages, String image, String description, String publisher) {
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.year = year;
+        this.pages = pages;
         this.image = image;
         this.description = description;
         this.publisher = publisher;
@@ -125,10 +137,16 @@ public class Book {
     }
 
     // goi API de lay thong tin sach
-    public static Book bookApi(String apiKey, String query, int available_amount) {
+//    public static Book bookApi(String apiKey, String query, int available_amount) {
+//        BookApi bookApi = new BookApi();
+//        Book newBook = bookApi.fetchBookInfor(apiKey, query, available_amount);
+//        return newBook;
+//    }
+
+    public static List<Book> bookApi(String apiKey, String query, String numberSearching) {
         BookApi bookApi = new BookApi();
-        Book newBook = bookApi.fetchBookInfor(apiKey, query, available_amount);
-        return newBook;
+        List<Book> bookList = bookApi.fetchBookList(apiKey, query, numberSearching); // Gọi đến phương thức fetchBookList
+        return bookList;
     }
 
 }

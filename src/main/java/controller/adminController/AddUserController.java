@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import services.user.Credentials;
@@ -38,7 +39,7 @@ public class AddUserController {
 
     @FXML
     private void initialize() {
-        System.out.println("AddBookController initialized.");
+        System.out.println("AddUserController initialized.");
     }
 
     public static void show(AccountController parentController) throws Exception {
@@ -53,6 +54,10 @@ public class AddUserController {
         stage2.show();
     }
 
+    /**
+     * Handles the add button action. Validates the input fields, attempts to add the user,
+     * and shows an alert if the addition fails.
+     */
     @FXML
     private void handleAddButton(ActionEvent event) {
         try {
@@ -65,26 +70,47 @@ public class AddUserController {
             String phoneNumber = phoneNumberField.getText();
 
             if (username.isEmpty() || password.isEmpty() || identificationId.isEmpty() || fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()) {
-                System.out.println("Please fill in all fields.");
+                showAlert("Input Error", "Please fill in all fields.");
             } else {
-                credentials.register(username, password, identificationId, fullName, email, phoneNumber);
-                System.out.println("User added successfully.");
+                boolean success = credentials.register(username, password, identificationId, fullName, email, phoneNumber);
+                if (success) {
+                    System.out.println("User added successfully.");
 
-                Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage2.close();
+                    // Close the add user window
+                    Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage2.close();
 
-                parentController.refreshAccountList();
+                    // Refresh the account list in the parent controller
+                    parentController.refreshAccountList();
+                } else {
+                    showAlert("Registration Error", "Failed to add user. Please check the input and try again.");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Error", "An unexpected error occurred. Please try again.");
         }
     }
 
+    /**
+     * Handles the close button action, closing the add user window.
+     */
     @FXML
     private void handleClose(ActionEvent event) {
-        // Handle "Quick Add" button click event
         Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage2.close();
     }
-}
 
+    /**
+     * Displays an alert dialog with the specified title and message.
+     *
+     * @param title   The title of the alert dialog.
+     * @param message The message to display in the alert dialog.
+     */
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.show();
+    }
+}

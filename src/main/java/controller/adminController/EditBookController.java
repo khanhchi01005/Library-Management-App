@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.book.Book;
 import services.book.BookService;
+import services.image.ImageService;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -133,7 +134,7 @@ public class EditBookController {
             bookService.modifyPages(selectedBook.getId(), pages);
             bookService.modifyAvailable_amount(selectedBook.getId(), availableAmount);
             bookService.modifyDescription(selectedBook.getId(), description);
-            saveImage(selectedBook.getId());
+            ImageService.saveImage(selectedBook.getId(), bookImage);
 
             System.out.println("Book details updated successfully.");
 
@@ -158,75 +159,6 @@ public class EditBookController {
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             bookImage.setImage(image);
-        }
-    }
-
-    private void saveImage(int nextID) {
-        String bookId = String.valueOf(nextID);
-
-        // Lấy ảnh từ ImageView
-        Image image = bookImage.getImage();
-
-        if (image == null) {
-            URL resource = getClass().getResource("/Images/macdinh.jpg");
-            if (resource == null) {
-                System.out.println("Ảnh không tìm thấy!");
-                return;
-            } else {
-                image = new Image(resource.toString());
-            }
-        }
-
-        // Đường dẫn thư mục lưu ảnh
-        File imageDir = new File("src/main/resources/Images/" + nextID);
-
-        // Kiểm tra và tạo thư mục nếu chưa tồn tại
-        if (!imageDir.exists()) {
-            if (imageDir.mkdirs()) {
-                System.out.println("Thư mục Images đã được tạo.");
-            } else {
-                System.out.println("Không thể tạo thư mục Images.");
-                return;
-            }
-        }
-
-        // Đường dẫn file ảnh
-        File outputFile = new File(imageDir, "bookImage" + ".jpg");
-
-        PixelReader pixelReader = image.getPixelReader();
-        WritableImage writableImage = new WritableImage((int) image.getWidth(), (int) image.getHeight());
-
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
-                writableImage.getPixelWriter().setColor(x, y, pixelReader.getColor(x, y));
-            }
-        }
-
-        try {
-            BufferedImage bufferedImage = new BufferedImage(
-                    (int) writableImage.getWidth(),
-                    (int) writableImage.getHeight(),
-                    BufferedImage.TYPE_INT_ARGB
-            );
-
-            for (int x = 0; x < writableImage.getWidth(); x++) {
-                for (int y = 0; y < writableImage.getHeight(); y++) {
-                    javafx.scene.paint.Color color = writableImage.getPixelReader().getColor(x, y);
-                    int r = (int) (color.getRed() * 255);
-                    int g = (int) (color.getGreen() * 255);
-                    int b = (int) (color.getBlue() * 255);
-                    int a = (int) (color.getOpacity() * 255);
-                    int argb = (a << 24) | (r << 16) | (g << 8) | b;
-                    bufferedImage.setRGB(x, y, argb);
-                }
-            }
-
-            ImageIO.write(bufferedImage, "PNG", outputFile);
-            System.out.println("Ảnh đã được lưu thành công: " + outputFile.getAbsolutePath());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Lỗi khi lưu ảnh.");
         }
     }
 

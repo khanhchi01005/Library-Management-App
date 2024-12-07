@@ -31,7 +31,7 @@ public class BookService {
         List<Book> books = new ArrayList<>();
         String query = "SELECT  book_id, title, image, author, publisher, category, available_amount, pages FROM books";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -58,7 +58,7 @@ public class BookService {
     // xem 1 cuon sach bat ky
     public void viewOneBook(int bookId){
         String query = "SELECT title,author,category,year, pages,available_amount,image,description,publisher FROM books WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)){
             pstmt.setInt(1, bookId);
 
@@ -82,7 +82,7 @@ public class BookService {
     public String getBookTitle(int bookId){
         String scanTitle = "";
         String query = "SELECT title FROM books WHERE book_id = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1,bookId);
             ResultSet rs = pstmt.executeQuery();
@@ -99,7 +99,7 @@ public class BookService {
     // tim kiem sach theo ten
     public void searchBookByTitle(String title){
         String query = "SELECT * FROM books WHERE title LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + title + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -123,7 +123,7 @@ public class BookService {
     // tim kiem sach theo the loai
     public void searchBookByGenre(String category){
         String query = "SELECT * FROM books WHERE category LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + category + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -147,7 +147,7 @@ public class BookService {
     // tim kiem sach theo NXB
     public void searchBookByPublisher(String publisher) {
         String query = "SELECT * FROM books WHERE publisher LIKE ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1,"%" + publisher + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -168,26 +168,34 @@ public class BookService {
         }
     }
     //them sach
-    public void addBook (String api_key,String addTitle, int amount){
-        Book newBook = Book.bookApi(api_key,addTitle, amount);
+    public void addBook(String api_key, String addTitle, int amount) {
+        // Gọi hàm bookApi để lấy danh sách sách từ Google Books API
+        String numberSearching = "10";
+        List<Book> bookList = Book.bookApi(api_key, addTitle, numberSearching);
 
-        String query = "INSERT INTO books (title, author, category, year, pages, available_amount, image, description,publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        String query = "INSERT INTO books (title, author, category, year, pages, available_amount, image, description, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
-            pstmt.setString(1,newBook.getTitle());
-            pstmt.setString(2, newBook.getAuthor());
-            pstmt.setString(3, newBook.getCategory());
-            pstmt.setInt(4, newBook.getYear());
-            pstmt.setInt(5, newBook.getPages());
-            pstmt.setInt(6, newBook.getAvailableAmount());
-            pstmt.setString(7, newBook.getImage());
-            pstmt.setString(8, newBook.getDescription());
-            pstmt.setString(9, newBook.getPublisher());
-            pstmt.executeUpdate();
-            System.out.println("Successfully added new book: " + newBook.getTitle());
+            for (Book newBook : bookList) {
+                pstmt.setString(1, newBook.getTitle());
+                pstmt.setString(2, newBook.getAuthor());
+                pstmt.setString(3, newBook.getCategory());
+                pstmt.setInt(4, newBook.getYear());
+                pstmt.setInt(5, newBook.getPages());
+                pstmt.setInt(6, newBook.getAvailableAmount());
+                pstmt.setString(7, newBook.getImage());
+                pstmt.setString(8, newBook.getDescription());
+                pstmt.setString(9, newBook.getPublisher());
+
+                pstmt.addBatch(); // Thêm câu lệnh vào batch
+            }
+
+            pstmt.executeBatch(); // Thực thi tất cả câu lệnh trong batch
+            System.out.println("Successfully added " + bookList.size() + " books.");
         } catch (SQLException e) {
-            System.err.println("Failed to add new book: " + e.getMessage());
+            System.err.println("Failed to add books: " + e.getMessage());
         }
     }
 
@@ -195,7 +203,7 @@ public class BookService {
         String query = "INSERT INTO books (title, author, category, year, pages, available_amount, image, description, publisher) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int bookId = -1; // Khởi tạo giá trị mặc định
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, title);
@@ -232,7 +240,7 @@ public class BookService {
     public void updateBookImage(int bookId, String newImageUrl) {
         String query = "UPDATE books SET image = ? WHERE book_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             pstmt.setString(1, newImageUrl);
@@ -255,7 +263,7 @@ public class BookService {
     //them sach
     public Book getBookByTitle(String title) {
         String query = "SELECT * FROM books WHERE title = ?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, title);
             ResultSet rs = pstmt.executeQuery();
@@ -282,7 +290,7 @@ public class BookService {
     //xoa sach
     public void deleteBook(int bookId) {
         String query = "DELETE FROM books WHERE book_id =?";
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query)  ){
             pstmt.setInt(1,bookId);
             int rowsAffected = pstmt.executeUpdate();

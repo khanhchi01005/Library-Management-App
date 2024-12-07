@@ -80,8 +80,95 @@ public class LibraryAdminController {
         });
     }
 
+    // Thêm sách
+    @FXML
+    public void handleAdd() {
+        try {
+            AddBookController.show(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Lỗi", "Không thể thêm sách. Vui lòng thử lại.");
+        }
+    }
+
+    // Sửa sách
+    @FXML
+    public void handleEdit() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+
+        if (selectedBook != null) {
+            try {
+                EditBookController.show(selectedBook, this); // Truyền sách được chọn vào EditBookController
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Lỗi", "Không thể sửa sách. Vui lòng thử lại.");
+            }
+        } else {
+            showAlert("Thông báo", "Vui lòng chọn một sách để chỉnh sửa.");
+        }
+    }
+
+    // Xóa sách
+    @FXML
+    public void handleDelete() {
+        BookService bookService = new BookService();
+        if (bookService == null) {
+            showAlert("Lỗi", "Dịch vụ sách chưa được khởi tạo!");
+            return;
+        }
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            // Remove the book from the database
+            bookService.deleteBook(selectedBook.getId());
+
+            // Remove the book from the TableView
+            bookList.remove(selectedBook);
+            refreshBookList();
+        } else {
+            showAlert("Lỗi", "Vui lòng chọn một sách để xóa!");
+        }
+    }
+
+    @FXML
+    public void handleDetail() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            try {
+                DetailBookController.show(selectedBook); // Truyền sách được chọn vào EditBookController
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Lỗi", "Không thể xem thông tin sách. Vui lòng thử lại.");
+            }
+        } else {
+            showAlert("Thông báo", "Vui lòng chọn một sách để xem thông tin.");
+        }
+    }
+
+    // Tìm kiếm sách
+    @FXML
+    public void handleSearch() {
+        String keyword = searchField.getText().toLowerCase();
+        ObservableList<Book> filteredList = FXCollections.observableArrayList();
+
+        for (Book book : bookList) {
+            if (book.getTitle().toLowerCase().contains(keyword) ||
+                    book.getAuthor().toLowerCase().contains(keyword) ||
+                    book.getCategory().toLowerCase().contains(keyword) ||
+                    book.getPublisher().toLowerCase().contains(keyword)) {
+                filteredList.add(book);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            showAlert("Thông báo", "Không tìm thấy sách nào khớp với từ khóa.");
+        }
+
+        bookTable.setItems(filteredList);
+    }
+
+    // Thêm các alert trong các hàm tải và làm mới dữ liệu sách
     private void loadBookData() {
-        loadingImage.setImage(new Image("file:src/main/resources/Images/download.gif"));
+        loadingImage.setImage(new Image("file:src/main/resources/Images/loading.gif"));
         loadingImage.setVisible(true); // Hiển thị ảnh động khi bắt đầu tải dữ liệu
 
         Task<ObservableList<Book>> loadBooksTask = new Task<>() {
@@ -102,7 +189,7 @@ public class LibraryAdminController {
         });
 
         loadBooksTask.setOnFailed(event -> {
-            showAlert("Error", "Failed to load book data.");
+            showAlert("Lỗi", "Không thể tải dữ liệu sách. Vui lòng thử lại.");
             loadingImage.setVisible(false); // Ẩn ảnh động nếu thất bại
         });
 
@@ -110,7 +197,7 @@ public class LibraryAdminController {
     }
 
     public void refreshBookList() {
-        loadingImage.setImage(new Image("file:src/main/resources/Images/download.gif"));
+        loadingImage.setImage(new Image("file:src/main/resources/Images/loading.gif"));
         loadingImage.setVisible(true); // Hiển thị ảnh động khi làm mới danh sách
 
         Task<ObservableList<Book>> refreshBooksTask = new Task<>() {
@@ -134,88 +221,11 @@ public class LibraryAdminController {
         });
 
         refreshBooksTask.setOnFailed(event -> {
-            showAlert("Error", "Failed to refresh book data.");
+            showAlert("Lỗi", "Không thể làm mới danh sách sách. Vui lòng thử lại.");
             loadingImage.setVisible(false); // Ẩn ảnh động nếu thất bại
         });
 
         new Thread(refreshBooksTask).start();
-    }
-
-    // Thêm sách
-    @FXML
-    public void handleAdd() {
-        try {
-            AddBookController.show(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Sửa sách
-    @FXML
-    public void handleEdit() {
-        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-
-        if (selectedBook != null) {
-            try {
-                EditBookController.show(selectedBook, this); // Truyền sách được chọn vào EditBookController
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            showAlert("Thông báo", "Vui lòng chọn một sách để chỉnh sửa.");
-        }
-    }
-
-    // Xóa sách
-    @FXML
-    public void handleDelete() {
-        BookService bookService = new BookService();
-        if (bookService == null) {
-            showAlert("Error", "Book service is not initialized!");
-            return;
-        }
-        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-        if (selectedBook != null) {
-            // Remove the book from the database
-            bookService.deleteBook(selectedBook.getId());
-
-            // Remove the book from the TableView
-            bookList.remove(selectedBook);
-            bookTable.refresh();
-        } else {
-            showAlert("Error", "Please select a book to delete!");
-        }
-    }
-
-    // Thông tin sách
-    @FXML
-    public void handleDetail() {
-        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-        try {
-            // Mở Stage 2 khi nhấn Login
-            DetailBookController.show(selectedBook);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Tìm kiếm sách
-    @FXML
-    public void handleSearch() {
-        String keyword = searchField.getText().toLowerCase();
-        ObservableList<Book> filteredList = FXCollections.observableArrayList();
-
-        for (Book book : bookList) {
-            if (book.getTitle().toLowerCase().contains(keyword) ||
-                    book.getAuthor().toLowerCase().contains(keyword) ||
-                    book.getCategory().toLowerCase().contains(keyword) ||
-                    book.getPublisher().toLowerCase().contains(keyword)) {
-                filteredList.add(book);
-            }
-        }
-
-        bookTable.setItems(filteredList);
     }
 
     protected void showAlert(String title, String message) {

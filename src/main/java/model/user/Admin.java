@@ -2,8 +2,6 @@ package model.user;
 
 import model.Database;
 import services.book.BookService;
-import services.transaction.BorrowService;
-import services.transaction.ReturnService;
 import services.user.AdminService;
 
 import java.sql.Connection;
@@ -11,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Admin extends Account {
-    private ReturnService returnService = new ReturnService();
     private BookService service = new BookService();
-    private BorrowService borrowService = new BorrowService();
     private AdminService adminService = new AdminService();
 
     public Admin() {
@@ -67,10 +63,7 @@ public class Admin extends Account {
 
     //sua cac thong tin cua sach
     //sua title
-    public void modifyTitle(int bookId, String title){
-        service.modifyTitle(bookId, title);
-
-    }
+    public void modifyTitle(int bookId, String title){service.modifyTitle(bookId, title);}
     //sua author
     public void modifyAuthor(int bookId, String author) {
         service.modifyAuthor(bookId, author);
@@ -88,9 +81,7 @@ public class Admin extends Account {
         modifyPages(bookId, pages);
     }
     //sua available_amount
-    public void modifyAvailable_amount(int bookId, int available_amount) {
-        modifyAvailable_amount(bookId, available_amount);
-    }
+    public void modifyAvailable_amount(int bookId, int available_amount) {modifyAvailable_amount(bookId, available_amount);}
     //sua image
     public void modifyImage(int bookId, String image) {
         modifyImage(bookId, image);
@@ -105,8 +96,6 @@ public class Admin extends Account {
     }
 
     //CAC THAO TAC LIEN QUAN DEN STUDENT
-
-
     //dang ky tai koan admin
     public void adminRegister(String username, String password, String identificationId, String fullname, String email, String phonenumber) {
         register(username, password, identificationId, fullname, email, phonenumber);
@@ -115,7 +104,6 @@ public class Admin extends Account {
     //dang nhap tai khoan admin
     public void adminLogin(String username, String password) {
         login(username, password);
-
     }
 
     //thay doi mat khau
@@ -132,17 +120,4 @@ public class Admin extends Account {
     public void viewAccount() {
         adminService.viewAccount();
     }
-
-    // xoa tai khoan student
-//    public void deleteUser(String user_id) {
-//        String query = "DELETE FROM users WHERE user_id = ?";
-//        try (Connection conn = Database.getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(query)) {
-//            pstmt.setString(1, user_id);
-//            pstmt.executeUpdate();
-//            System.out.println("Successfully deleted user with id: " + user_id);
-//        } catch (SQLException e) {
-//            System.err.println("Failed to delete user: " + e.getMessage());
-//        }
-//    }
 }

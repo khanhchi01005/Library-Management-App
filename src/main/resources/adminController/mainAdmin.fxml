@@ -15,48 +15,54 @@
       <AnchorPane fx:id="navigationPane" prefHeight="768.0" prefWidth="68.0" style="-fx-background-color: #7963f7;" stylesheets="@../styles/mainStyles.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="menuButton" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleMenuClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="homeButton" layoutX="8.0" layoutY="205.0" mnemonicParsing="false" onAction="#handleHomeClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="bookButton" layoutX="8.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBookClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="borrowButton" layoutX="8.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleBorrowClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="returnButton" layoutX="8.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleReturnClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="accountButton" layoutX="8.0" layoutY="445.0" mnemonicParsing="false" onAction="#handleAccountClick" prefHeight="50.0" prefWidth="50.0" />
-            <Button fx:id="logoutButton" layoutX="8.0" layoutY="514.0" mnemonicParsing="false" onAction="#handleLogoutClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="homeButton" layoutX="8.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleHomeClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="bookButton" layoutX="8.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleBookClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="borrowButton" layoutX="8.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleBorrowClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="returnButton" layoutX="8.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleReturnClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="accountButton" layoutX="8.0" layoutY="413.0" mnemonicParsing="false" onAction="#handleAccountClick" prefHeight="50.0" prefWidth="50.0" />
+            <Button fx:id="logoutButton" layoutX="8.0" layoutY="544.0" mnemonicParsing="false" onAction="#handleLogoutClick" prefHeight="50.0" prefWidth="50.0" />
             <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="24.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/menuBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="215.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="183.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/homeBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="275.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="243.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/bookBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="335.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="303.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/borrowBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="395.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="363.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/returnBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="455.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="423.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/accountBlack.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="524.0" pickOnBounds="true">
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="555.0" pickOnBounds="true">
                <image>
                   <Image url="@../Images/Icons/logoutWhite.png" />
                </image>
             </ImageView>
-            <Line endX="12.300006866455078" layoutX="42.0" layoutY="505.0" opacity="0.5" startX="-28.600021362304688" />
+            <Line endX="12.300006866455078" layoutX="41.0" layoutY="535.0" opacity="0.5" startX="-28.600021362304688" />
+            <Button fx:id="googleButton" layoutX="8.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleGoogleClick" prefHeight="50.0" prefWidth="50.0" />
+            <ImageView disable="true" fitHeight="30.0" fitWidth="30.0" layoutX="18.0" layoutY="484.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../Images/Icons/googleBlack.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </left>

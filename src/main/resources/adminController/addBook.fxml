@@ -58,9 +58,8 @@
             <Blend />
          </effect>
       </Text>
-      <Button fx:id="addButton" layoutY="573.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="46.0" prefWidth="200.0" text="Add" />
-      <Button fx:id="quickAdd" layoutX="200.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleQuickAdd" prefHeight="46.0" prefWidth="200.0" text="Quick Add" />
-      <Button fx:id="closeButton" layoutX="400.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="46.0" prefWidth="200.0" text="Close" />
+      <Button fx:id="addButton" layoutY="573.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="46.0" prefWidth="300.0" text="Add" />
+      <Button fx:id="closeButton" layoutX="300.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="46.0" prefWidth="300.0" text="Close" />
       <Button fx:id="addBookImageButton" layoutX="20.0" layoutY="439.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="36.0" prefWidth="144.0" text="Add Book Image" />
       <ImageView fx:id="bookImage" fitHeight="333.0" fitWidth="250.0" layoutX="20.0" layoutY="87.0" pickOnBounds="true" />
    </children>

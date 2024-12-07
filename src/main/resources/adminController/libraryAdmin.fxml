@@ -95,7 +95,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="searchField" layoutX="347.0" layoutY="43.0" mouseTransparent="true" prefHeight="34.0" prefWidth="916.0" promptText="Enter book id, book title, author, publisher, category..." />
+      <TextField fx:id="searchField" layoutX="347.0" layoutY="43.0" prefHeight="34.0" prefWidth="916.0" promptText="Enter book id, book title, author, publisher, category..." />
       <Button fx:id="searchButton" layoutX="1188.0" layoutY="45.0" onAction="#handleSearch" text="Search" />
       <ImageView fx:id="loadingImage" fitHeight="768.0" fitWidth="1298.4" pickOnBounds="true" />
     </children>
