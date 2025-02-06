@@ -1,15 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1224.0" stylesheets="@../styles/rulesStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userController.RulesController">
-    <children>
-        <Button layoutX="19.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage1" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="221.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage2" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="422.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage3" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="624.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage4" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="825.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSwitchPage5" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-        <Button layoutX="1027.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLogout" opacity="0.0" prefHeight="41.0" prefWidth="178.0" style="-fx-background-radius: 20;" text="Button" />
-    </children>
+<AnchorPane prefHeight="768.0" prefWidth="1298.4" stylesheets="@../styles/rulesStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.userController.RulesController">
+   <children>
+      <Pane fx:id="noticePane" layoutX="82.0" layoutY="44.0" prefHeight="680.0" prefWidth="1134.0">
+         <children>
+            <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="-12.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/notice.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="424.0" layoutY="13.0" text="Library Rules">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField" layoutX="27.0" layoutY="79.0" prefHeight="27.0" prefWidth="519.0" text="1. Handle Library Materials and Equipment with Care" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField1" layoutX="41.0" layoutY="106.0" prefHeight="102.0" prefWidth="502.0" text="Patrons are responsible for the condition of books, journals, and other library resources. Avoid writing, tearing, or damaging materials. Equipment such as computers and printers should also be used properly and left in good condition after use." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField2" layoutX="24.0" layoutY="223.0" prefHeight="27.0" prefWidth="519.0" text="2. Maintain a Quiet and Respectful Environment" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField11" layoutX="41.0" layoutY="250.0" prefHeight="79.0" prefWidth="502.0" text="The library is a shared space for study and research. Keep conversations to a whisper, and avoid making noise that might disturb others." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField21" layoutX="24.0" layoutY="343.0" prefHeight="27.0" prefWidth="519.0" text="3. Return Borrowed Items on Time" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField111" layoutX="41.0" layoutY="370.0" prefHeight="53.0" prefWidth="502.0" text="All borrowed materials must be returned or renewed by the due date. Late returns may result in fines or suspension of borrowing privileges." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField22" layoutX="24.0" layoutY="440.0" prefHeight="27.0" prefWidth="519.0" text="4. No Food or Drinks Allowed" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField112" layoutX="41.0" layoutY="467.0" prefHeight="53.0" prefWidth="502.0" text="To preserve the cleanliness of the library and protect books and electronic equipment, food and drinks are prohibited." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField221" layoutX="24.0" layoutY="540.0" prefHeight="27.0" prefWidth="519.0" text="5. Use Mobile Devices Responsibly" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField1121" layoutX="41.0" layoutY="567.0" prefHeight="79.0" prefWidth="502.0" text="Mobile phones and other devices should be kept on silent mode. If you need to use your device for communication, do so in designated areas to avoid disrupting others." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField3" layoutX="591.0" layoutY="79.0" prefHeight="27.0" prefWidth="519.0" text="6. Follow the Library’s Computer Usage Policy" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField12" layoutX="608.0" layoutY="106.0" prefHeight="79.0" prefWidth="502.0" text="Library computers are intended for educational and research purposes. Personal use, such as gaming or social media browsing, may be restricted. Always log out after your session to protect your privacy." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField23" layoutX="588.0" layoutY="223.0" prefHeight="27.0" prefWidth="519.0" text="7. Respect Designated Study Areas" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField113" layoutX="605.0" layoutY="250.0" prefHeight="79.0" prefWidth="502.0" text="The library provides spaces for both individual study and group collaboration. Quiet zones should be used for individual work, while group study rooms can accommodate discussions and teamwork." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField211" layoutX="588.0" layoutY="343.0" prefHeight="27.0" prefWidth="519.0" text="8. Present a Valid Library Card for Transactions" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField1111" layoutX="605.0" layoutY="370.0" prefHeight="53.0" prefWidth="502.0" text="A library card is required for borrowing materials, accessing certain areas, and using reserved resources. Make sure to have it with you." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField222" layoutX="588.0" layoutY="440.0" prefHeight="27.0" prefWidth="519.0" text="9. Do Not Remove Items Without Proper Checkout" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField1122" layoutX="605.0" layoutY="467.0" prefHeight="53.0" prefWidth="502.0" text="All books and resources must be checked out at the circulation desk before leaving the library." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField2211" layoutX="588.0" layoutY="540.0" prefHeight="27.0" prefWidth="519.0" text="10. Follow Instructions from Library Staff" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="noticeField11211" layoutX="605.0" layoutY="567.0" prefHeight="102.0" prefWidth="502.0" text="Library staff are available to assist with finding materials, using equipment, and maintaining a conducive environment. Patrons are expected to follow their instructions and respect their authority in managing the space." textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

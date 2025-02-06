@@ -1,19 +1,35 @@
 package app;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.Node;
+import javafx.util.Duration;
 import model.user.Account;
 import model.SessionManager;
+import utils.Animation.EffectUtils;
 
+/**
+ * Controller for handling login functionality in the application.
+ */
 public class LoginController {
+
+    @FXML
+    private AnchorPane background;
+
+    @FXML
+    private AnchorPane loginPane;
+
+    @FXML
+    private Label introLabel;
 
     @FXML
     private TextField usernameField;
@@ -26,7 +42,11 @@ public class LoginController {
 
     private Account account = new Account();
 
-    // Hàm để hiển thị Stage 2
+    /**
+     * Displays the login stage (Stage 2).
+     *
+     * @throws Exception if the stage fails to load.
+     */
     public static void showStage2() throws Exception {
         FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/adminController/login.fxml"));
         Parent root2 = loader.load();
@@ -37,34 +57,69 @@ public class LoginController {
         stage2.show();
     }
 
-    // Sự kiện khi nhấn nút Submit
+    /**
+     * Initializes the login scene with animations and transitions.
+     */
+    @FXML
+    public void initialize() {
+        loginPane.setVisible(false);
+
+        EffectUtils.applyTemporaryAppearEffect(introLabel, 0.75, 2);
+
+        PauseTransition waitForIntroEffect = new PauseTransition(Duration.seconds(3.5));
+        waitForIntroEffect.setOnFinished(event -> {
+            introLabel.setVisible(false);
+            loginPane.setVisible(true);
+            loginPane.setOpacity(0);
+            EffectUtils.applyFadeTransition(loginPane, 0, 1, 1, 1, false);
+        });
+        waitForIntroEffect.play();
+    }
+
+    /**
+     * Handles the submit button click event.
+     *
+     * @param event the action event triggered by clicking the submit button.
+     */
     @FXML
     public void handleSubmit(ActionEvent event) {
-        // Lấy thông tin từ TextField
         String username = usernameField.getText();
         String password = passwordField.getText();
-        account.login(username, password);
-        if (SessionManager.getisLogin()) {
-            // Đóng Stage 2
-            Stage stage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage2.close();
 
-            // Chuyển cảnh về Stage 1 và hiển thị homeAdmin.fxml
-            try {
-                if(SessionManager.getIdentificationId().substring(0, 2).equals("AD"))
-                    MainApp.switchScene("/adminController/homeAdmin.fxml");
-                else {
-                    MainApp.switchScene("/userController/homeUser.fxml");
-                    SessionManager.setUsername(username);
-                    System.out.println(SessionManager.getUsername());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        account.login(username, password);
+
+        if (SessionManager.getisLogin()) {
+            handleSceneTransition(username);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Tên đăng nhập hoặc mật khẩu không đúng!");
-            alert.show();
+            showLoginError();
         }
     }
-}
 
+    /**
+     * Handles scene transitions based on user roles.
+     *
+     * @param username the username of the logged-in user.
+     */
+    private void handleSceneTransition(String username) {
+        EffectUtils.applyFadeTransition(background, 1, 0, 0.75, 1, false);
+        PauseTransition waitForIntroEffect = new PauseTransition(Duration.seconds(0.75));
+        waitForIntroEffect.setOnFinished(event -> {
+            SessionManager.setUsername(username);
+
+            if (SessionManager.getIdentificationId().startsWith("AD")) {
+                MainApp.switchScene("/adminController/mainAdmin.fxml");
+            } else {
+                MainApp.switchScene("/userController/mainUser.fxml");
+            }
+        });
+        waitForIntroEffect.play();
+    }
+
+    /**
+     * Displays an error alert for invalid login credentials.
+     */
+    private void showLoginError() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong username or password!");
+        alert.show();
+    }
+}

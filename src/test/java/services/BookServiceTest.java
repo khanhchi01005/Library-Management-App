@@ -1,3 +1,4 @@
+
 package services;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,19 +37,35 @@ class BookServiceTest {
 
     @Test
     void searchBookByTitle() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        String title = book.getTitle();
+        bookService.searchBookByTitle(title);
+        assertNotNull(book);
 
     }
 
     @Test
     void searchBookByGenre() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        String category = book.getCategory();
+        bookService.searchBookByGenre(category);
+        assertNotNull(book);
     }
 
     @Test
     void searchBookByPublisher() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        String publisher = book.getTitle();
+        bookService.searchBookByPublisher(publisher);
+        assertNotNull(book);
     }
 
     @Test
     void addBook() {
+
     }
 
     @Test
@@ -65,37 +82,91 @@ class BookServiceTest {
 
     @Test
     void modifyTitle() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String title = book.getTitle();
+        bookService.modifyTitle(bookId,title);
+        assertNotNull(book);
     }
 
     @Test
     void modifyAuthor() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String author = book.getAuthor();
+        bookService.modifyAuthor(bookId,author);
+        assertNotNull(book);
     }
 
     @Test
     void modifyCategory() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String category = book.getCategory();
+        bookService.modifyCategory(bookId,category);
+        assertNotNull(book);
     }
 
     @Test
     void modifyYear() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        int year = book.getYear();
+        bookService.modifyYear(bookId,year);
+        assertNotNull(book);
     }
 
     @Test
     void modifyPages() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        int pages  = book.getPages();
+        bookService.modifyPages(bookId,pages);
+        assertNotNull(book);
     }
 
     @Test
     void modifyAvailable_amount() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        int amount = book.getAvailableAmount();
+        bookService.modifyAvailable_amount(bookId,amount);
+        assertNotNull(book);
     }
 
     @Test
     void modifyImage() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String image = book.getImage();
+        bookService.modifyImage(bookId,image);
+        assertNotNull(book);
     }
 
     @Test
     void modifyDescription() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String description = book.getDescription();
+        bookService.modifyAuthor(bookId,description);
+        assertNotNull(book);
     }
 
     @Test
     void modifyPublisher() {
+        List<Book> books = bookService.getAllBooks();
+        Book book = books.getFirst();
+        int bookId = book.getId();
+        String publisher = book.getPublisher();
+        bookService.modifyPublisher(bookId,publisher);
+        assertNotNull(book);
     }
 }

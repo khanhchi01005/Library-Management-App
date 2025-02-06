@@ -1,116 +1,173 @@
+/* Nền chính */
 .root {
-    -fx-background-image: url('../adminController/Images/4.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center;
+    -fx-background-color: linear-gradient(to bottom, #d4b0f4, #8e44ad); /* Gradient tím */
 }
 
-/* Giao diện bảng - màu sắc ấm áp */
+/* Giao diện bảng - màu tím nhạt */
 .table-view {
-    -fx-background-color: #fff6e6; /* Nền bảng màu vàng nhạt */
-    -fx-border-color: #d8b384; /* Màu viền nâu nhạt */
-    -fx-border-radius: 12px; /* Bo tròn góc */
+    -fx-background-color: #f8eaff; /* Nền bảng tím nhạt */
+    -fx-border-color: #b085d6; /* Màu viền tím trung tính */
+    -fx-border-radius: 12px;
     -fx-padding: 10px;
     -fx-background-radius: 12px;
     -fx-font-size: 14px;
 }
 
+/* Hàng trong bảng */
 /* Giao diện các hàng trong bảng */
 .table-row-cell {
-    -fx-background-color: #fffaf3; /* Nền hàng màu kem */
+    -fx-background-color: #f3e5f5; /* Nền hàng màu tím nhạt */
     -fx-border-width: 0 0 1px 0;
-    -fx-border-color: #f4d4a0; /* Viền ngăn cách giữa các hàng */
-    -fx-alignment: center-left;
-}
-
-/* Giao diện các hàng khi được chọn */
-.table-row-cell:selected {
-    -fx-background-color: #ffd699; /* Màu cam nhạt khi chọn */
-    -fx-text-fill: #4b2e18; /* Màu chữ nâu */
-    -fx-font-weight: bold;
-}
-
-/* Header của bảng */
-.table-column-header {
-    -fx-background-color: linear-gradient(#f5ad76, #d96c3e); /* Gradient cam ấm */
-    -fx-text-fill: white; /* Màu chữ trắng */
-    -fx-font-weight: bold;
+    -fx-border-color: #d1c4e9; /* Viền tím nhạt */
+    -fx-cell-size: 50px; /* Chiều cao mỗi hàng (mặc định là 24px) */
     -fx-alignment: center;
-    -fx-border-color: #d8b384; /* Viền nâu nhạt */
-    -fx-border-width: 0 0 2px 0; /* Đường viền dưới header */
-    -fx-padding: 8px;
-    -fx-font-size: 16px;
+}
+
+/* Hàng chẵn */
+.table-row-cell:odd {
+    -fx-background-color: #ede7f6; /* Tím nhạt */
+}
+
+/* Hàng lẻ */
+.table-row-cell:even {
+    -fx-background-color: #d1c4e9; /* Tím đậm hơn */
+}
+
+.table-view .table-cell {
+    -fx-font-weight: bold; /* Chữ đậm */
+    -fx-alignment: center; /* Căn giữa chữ cả theo chiều ngang và dọc */
+    -fx-font-size: 14px; /* Cỡ chữ */
 }
 
 /* Khi hover vào hàng */
 .table-row-cell:hover {
-    -fx-background-color: #fbd5b5; /* Màu cam nhạt */
-    -fx-text-fill: #4b2e18; /* Màu chữ nâu */
+    -fx-background-color: #b39ddb; /* Màu tím sáng khi hover */
+    -fx-text-fill: white; /* Màu chữ trắng */
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #a35dd8; /* Nền màu tím đậm khi chọn */
+    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-font-weight: bold; /* Chữ đậm */
+}
+
+/* Hover hàng */
+.table-row-cell:hover {
+    -fx-background-color: #e6ccff; /* Tím nhạt hơn */
+    -fx-text-fill: #4a235a;
+}
+
+/* Header bảng với gradient tím và hiệu ứng bóng */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#6a1b9a, #8e44ad); /* Gradient tím */
+    -fx-padding: 10px;
+    -fx-border-radius: 12px 12px 0 0; /* Bo tròn góc trên */
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 4); /* Bóng mờ */
+}
+
+/* Chữ trong header */
+.table-view .column-header-background .label {
+    -fx-text-fill: #ffffff; /* Chữ trắng */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+}
+
+/* Hiệu ứng hover khi di chuột vào header */
+.table-view .column-header-background:hover {
+    -fx-background-color: linear-gradient(#7e1ebc, #a064d1); /* Gradient tím sáng hơn khi hover */
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
 }
 
 /* Giao diện TextField */
 .text-field {
-    -fx-background-color: #fffaf3; /* Nền màu kem */
-    -fx-border-color: #d8b384; /* Viền nâu nhạt */
+    -fx-background-color: #f4e2ff;
+    -fx-border-color: #b085d6;
     -fx-border-radius: 8px;
     -fx-padding: 5px;
     -fx-font-size: 14px;
-    -fx-text-fill: #4b2e18; /* Màu chữ nâu */
+    -fx-text-fill: #4a235a;
 }
 
-/* Giao diện Button */
+/* Button */
 .button {
-    -fx-background-color: linear-gradient(#f5ad76, #d96c3e); /* Gradient cam */
-    -fx-text-fill: white; /* Màu chữ trắng */
+    -fx-background-color: linear-gradient(#ab47bc, #8e44ad); /* Gradient tím đậm */
+    -fx-text-fill: white;
     -fx-font-size: 14px;
+    -fx-background-radius: 10px;
     -fx-padding: 5px 15px;
-    -fx-border-radius: 8px; /* Bo tròn */
+    -fx-border-radius: 8px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2); /* Hiệu ứng bóng */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2);
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(#fcd1a1, #f1975b); /* Gradient cam nhạt hơn */
+    -fx-background-color: linear-gradient(#d4a6f4, #ab47bc); /* Gradient tím sáng hơn */
     -fx-cursor: hand;
 }
 
 .button:pressed {
-    -fx-background-color: #d96c3e; /* Màu cam đậm */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3); /* Bóng đậm hơn */
+    -fx-background-color: #8e44ad;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3);
 }
 
-/* Accept Button - Màu xanh lá cây */
-#acceptButton {
-    -fx-background-color: linear-gradient(#4CAF50, #388E3C); /* Gradient xanh lá cây */
-    -fx-text-fill: white; /* Màu chữ trắng */
-    -fx-font-weight: bold;
-    -fx-border-radius: 8px; /* Bo tròn góc */
-    -fx-padding: 5px 15px;
-}
-
-#acceptButton:hover {
-    -fx-background-color: linear-gradient(#66BB6A, #43A047); /* Màu xanh lá nhạt hơn */
-    -fx-cursor: hand;
-}
-
-#acceptButton:pressed {
-    -fx-background-color: #2E7D32; /* Màu xanh đậm */
-}
-
-/* Reject Button - Màu đỏ */
+/* Nút màu đỏ */
 #rejectButton {
-    -fx-background-color: linear-gradient(#F44336, #D32F2F); /* Gradient đỏ */
-    -fx-text-fill: white; /* Màu chữ trắng */
-    -fx-font-weight: bold;
-    -fx-border-radius: 8px; /* Bo tròn góc */
+    -fx-background-color: linear-gradient(#f44336, #c62828); /* Gradient đỏ đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10px;
     -fx-padding: 5px 15px;
+    -fx-border-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2);
 }
 
 #rejectButton:hover {
-    -fx-background-color: linear-gradient(#E57373, #C62828); /* Màu đỏ nhạt hơn */
+    -fx-background-color: linear-gradient(#f57c7c, #f44336); /* Gradient đỏ sáng hơn */
     -fx-cursor: hand;
 }
 
 #rejectButton:pressed {
-    -fx-background-color: #B71C1C; /* Màu đỏ đậm */
+    -fx-background-color: #c62828;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3);
+}
+
+/* Nút màu xanh lá */
+#acceptButton {
+    -fx-background-color: linear-gradient(#4caf50, #39ae3f); /* Gradient xanh lá đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-border-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 2, 2);
+}
+
+#acceptButton:hover {
+    -fx-background-color: linear-gradient(#81c784, #6ad171); /* Gradient xanh sáng hơn */
+    -fx-cursor: hand;
+}
+
+#acceptButton:pressed {
+    -fx-background-color: #2e7d32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 3, 3);
+}
+
+#noticePane {
+    -fx-background-color: white; /* Nền trắng */
+    -fx-border-color: #8e44ad; /* Viền tím đậm */
+    -fx-border-width: 2px; /* Độ dày viền */
+    -fx-border-radius: 12px; /* Bo tròn góc */
+    -fx-background-radius: 12px; /* Bo tròn nền */
+    -fx-padding: 15px; /* Khoảng cách bên trong */
+    -fx-effect: dropshadow(gaussian, rgba(142, 68, 173, 0.4), 10, 0, 3, 3); /* Hiệu ứng bóng tím */
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 2, 2); /* Hiệu ứng bóng */
 }
