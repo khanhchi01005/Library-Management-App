@@ -75,7 +75,7 @@ The **Library Management System** comprehensive software solution designed to fa
 ## 📝 Creators
 
 ### Hoang Khanh Chi: 
-- **Role**: Backend developer, Database designer.
+- **Role**: Backend developer, Database designer, AI Enginner.
 - **Contact**:
   - Email: khanhchi01005@gmail.com
   - Facebook: https://www.facebook.com/khanh.chi.337840/
